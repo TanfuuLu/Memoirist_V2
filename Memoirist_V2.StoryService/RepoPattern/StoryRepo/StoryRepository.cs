@@ -86,7 +86,6 @@ public class StoryRepository : IStoryRepository {
 			return null;
 		}
 	}
-
 	public async Task<Story> UpdateStoryIntroduction(string newIntro, int id) {
 		var item = await dbContext.Stories.FirstOrDefaultAsync(x => x.StoryId == id);
 		if(item != null) {

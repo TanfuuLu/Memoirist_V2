@@ -32,8 +32,6 @@ public class StoryController : ControllerBase {
 		////StoryWriterId cung vay
 		var itemDomain = mapper.Map<Story>(itemDTO);
 		var result = await storyRepository.AddStory(itemDomain);
-		rabbitRepository.SendInt("WriterIdQueue", result.WriterStoryId);
-		rabbitRepository.SendInt("StoryIdQueue", result.StoryId);
 		return Ok(result);
 	}
 	[HttpGet("get-story-{storyId:int}")]
@@ -55,7 +53,6 @@ public class StoryController : ControllerBase {
 	[HttpDelete("delete-story/{id:int}")]
 	public async Task<IActionResult> DeleteStory([FromRoute]int id) {
 		var item = await storyRepository.DeleteStory(id);
-		rabbitRepository.SendInt("DeleteStoryIdQueue", id);
 		return Ok(item);
 	}
 }

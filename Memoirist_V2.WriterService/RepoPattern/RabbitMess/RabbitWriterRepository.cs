@@ -54,7 +54,7 @@ public class RabbitWriterRepository : IRabbitWriterRepository {
 					items.Add(writer);
 				};
 				channel.BasicConsume(QueueName, true, consumer);
-				await Task.WhenAny(tcs.Task, Task.Delay(500));
+				await Task.WhenAny(tcs.Task, Task.Delay(1000));
 			}
 			return items;
 		}
@@ -73,7 +73,7 @@ public class RabbitWriterRepository : IRabbitWriterRepository {
 					item = writer;
 				};
 				channel.BasicConsume(QueueName, true, consumer);
-				await Task.WhenAny(tcs.Task, Task.Delay(500));
+				await Task.WhenAny(tcs.Task, Task.Delay(1000));
 			}
 			return item;
 		}
@@ -92,7 +92,7 @@ public class RabbitWriterRepository : IRabbitWriterRepository {
 					item = writer;
 				};
 				channel.BasicConsume(QueueName, true, consumer);
-				await Task.WhenAny(tcs.Task, Task.Delay(500));
+				await Task.WhenAny(tcs.Task, Task.Delay(1000));
 			}
 			return item;
 		}

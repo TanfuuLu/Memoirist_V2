@@ -28,7 +28,7 @@ public class RabbitStoryRepository : IRabbitRepository {
 					listItem.Add(JsonConvert.DeserializeObject<Story>(message));
 				};
 				channel.BasicConsume(queue:QueueName, true, consumer:consumer);
-				await Task.WhenAny(tcs.Task, Task.Delay(500));
+				await Task.WhenAny(tcs.Task, Task.Delay(1000));
 			}
 			return listItem;
 		}
@@ -44,7 +44,7 @@ public class RabbitStoryRepository : IRabbitRepository {
 			var body = ea.Body.ToArray();
 			var message = Encoding.UTF8.GetString(body);
 			 result = JsonConvert.DeserializeObject<string>(message);
-			await Task.WhenAny(tcs.Task, Task.Delay(500));
+			await Task.WhenAny(tcs.Task, Task.Delay(1000));
 		};
 		return result;
 	}
@@ -63,7 +63,7 @@ public class RabbitStoryRepository : IRabbitRepository {
 				
 				};
 				channel.BasicConsume(QueueName, true, consumer);
-				await Task.WhenAny(tcs.Task,Task.Delay(500));
+				await Task.WhenAny(tcs.Task,Task.Delay(1000));
 			}
 			return storyObj;
 		}
@@ -82,7 +82,7 @@ public class RabbitStoryRepository : IRabbitRepository {
 					listItem = item;
 				};
 				channel.BasicConsume(queue: QueueName, true, consumer: consumer);
-				await Task.WhenAny(tcs.Task, Task.Delay(500));
+				await Task.WhenAny(tcs.Task, Task.Delay(1000));
 			}
 			return listItem;
 		}

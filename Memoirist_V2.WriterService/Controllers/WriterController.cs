@@ -43,13 +43,13 @@ public class WriterController : ControllerBase {
 		}
 		int writerId = await rabbitRepository.ReceiveInt("WriterIdQueue");
 		int storyId = await rabbitRepository.ReceiveInt("StoryIdQueue");
-		if(writerId != 0 && storyId != 0) {
-			writerRepository.UpdateWriterWhenAddStory(writerId,storyId);
-		}
-		int deleteStoryId = await rabbitRepository.ReceiveInt("DeleteStoryIdQueue");
-		if(deleteStoryId != 0) {
-			writerRepository.UpdateWriterWhenDeleteStory(id, deleteStoryId);
-		}
+		//if(writerId != 0 && storyId != 0) {
+		//	writerRepository.UpdateWriterWhenAddStory(writerId,storyId);
+		//}
+		//int deleteStoryId = await rabbitRepository.ReceiveInt("DeleteStoryIdQueue");
+		//if(deleteStoryId != 0) {
+		//	writerRepository.UpdateWriterWhenDeleteStory(id, deleteStoryId);
+		//}
 		if(writerId == id) {
 			var writer = await writerRepository.GetWriterById(writerId);
 			rabbitRepository.SendListFollowingStoryIdOfWriter(writer.ListFollowingStoryId, "FollowingStoryIdQueue");
@@ -117,5 +117,15 @@ public class WriterController : ControllerBase {
 		var item = await writerRepository.GetWriterById(id);
 		var listItem = await writerRepository.GetListStoryOfWriter(id);
 		return Ok(listItem);
+	}
+	[HttpPost("writer-{writerId:int}/add-story-{id:int}")]
+	public async Task<IActionResult> AddStoryToWriter([FromRoute]int writerId, [FromRoute]int id) {
+		var item = await writerRepository.AddStoryToList(id,writerId);
+		return Ok(item);
+	}
+	[HttpDelete("writer-{writerId:int}/delete-story-{id:int}")]
+	public async Task<IActionResult> DeleteStoryFromWriter([FromRoute]int writerId, [FromRoute]int id) {
+		var item = await writerRepository.DeleteStoryFromList(id, writerId);
+		return Ok(item);	
 	}
 }
