@@ -1,0 +1,100 @@
+using Memoirist_V2.StoryService.DataContext;
+using Memoirist_V2.StoryService.Mapping;
+using Memoirist_V2.StoryService.RepoPattern.RabbitMess;
+using Memoirist_V2.StoryService.RepoPattern.StoryRepo;
+using Memoirist_V2.WriterService.DataContext;
+using Memoirist_V2.WriterService.Mapping;
+using Memoirist_V2.WriterService.RepoPattern;
+using Memoirist_V2.WriterService.RepoPattern.RabbitMess;
+using Memoirist_V2.YarpGateway.DataContext;
+using Memoirist_V2.YarpGateway.Mapping;
+using Memoirist_V2.YarpGateway.Models;
+using Memoirist_V2.YarpGateway.RabbitMess;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+var builder = WebApplication.CreateBuilder(args);
+
+builder.AddServiceDefaults();
+
+// Add services to the container.
+
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(typeof(MappingProfile));
+builder.AddRabbitMQClient("rabbitMess");
+builder.Services.AddScoped<IRabbitYarpRepository, RabbitYarpRepository>();//Yarp Service
+
+
+//Writer Service
+builder.Services.AddScoped<IWriterRepository, WriterRepository>();// DI for Writer Service
+builder.Services.AddScoped<IRabbitWriterRepository, RabbitWriterRepository>();
+builder.AddNpgsqlDbContext<WriterDbContext>("writerDb"); //DB for Writer Service because stupid of Aspire.
+builder.Services.AddAutoMapper(typeof(WriterMappingProfile).Assembly);
+//Story Service
+builder.AddNpgsqlDbContext<StoryDbContext>("storyDb");
+builder.Services.AddScoped<IRabbitRepository, RabbitStoryRepository>();
+builder.Services.AddScoped<IStoryRepository, StoryRepository>();
+builder.Services.AddAutoMapper(typeof(StoryMappingProfile).Assembly);
+
+
+builder.Services.AddReverseProxy()
+	.LoadFromConfig(builder.Configuration.GetSection("ReverseProxy")).AddServiceDiscoveryDestinationResolver();
+
+builder.Services.AddAuthorizationBuilder().AddPolicy("AdminPolicy", o => o.RequireRole("Admin"));
+builder.AddNpgsqlDbContext<AuthenticateDbContext>("authenDb");
+builder.Services.AddIdentity<User, IdentityRole>()
+	.AddEntityFrameworkStores<AuthenticateDbContext>()
+	.AddSignInManager()
+	.AddRoles<IdentityRole>();
+builder.Services.AddAuthentication(options => {
+	options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+	options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddCookie(cookie => {
+	cookie.Cookie.Name = "token";
+}).AddJwtBearer(options => {
+	options.TokenValidationParameters = new TokenValidationParameters {
+		ValidateIssuer = true,
+		ValidateAudience = true,
+		ValidateLifetime = true,
+		ValidateIssuerSigningKey = true,
+		ValidIssuer = builder.Configuration["Jwt:Issuer"],
+		ValidAudience = builder.Configuration["Jwt:Audience"],
+		IssuerSigningKey =  new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
+	};
+	options.Events = new JwtBearerEvents {
+		OnMessageReceived = context => {
+			context.Token = context.Request.Cookies["token"];
+			return Task.CompletedTask;
+		}
+	};
+});
+builder.Services.Configure<IdentityOptions>(options => {
+	options.Password.RequireDigit = false;
+	options.Password.RequireNonAlphanumeric = false;
+	options.Password.RequireUppercase = false;
+	options.Password.RequiredLength = 6;
+	options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+ ";
+	options.User.RequireUniqueEmail = false;
+});
+var app = builder.Build();
+
+app.MapDefaultEndpoints();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+app.UseAuthentication();	
+app.UseAuthorization();
+
+app.MapControllers();
+app.MapReverseProxy();
+app.Run();

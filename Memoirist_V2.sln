@@ -1,0 +1,54 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Memoirist_V2.AppHost", "Memoirist_V2.AppHost\Memoirist_V2.AppHost.csproj", "{204E600A-CEF1-4A6B-A10E-9785C047242E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Memoirist_V2.ServiceDefaults", "Memoirist_V2.ServiceDefaults\Memoirist_V2.ServiceDefaults.csproj", "{F4E31DBC-31BC-4C5E-8F76-C9BFCEB8CEB1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Memoirist_V2.WriterService", "Memoirist_V2.WriterService\Memoirist_V2.WriterService.csproj", "{EE5B9AA8-CF2B-4402-B0CC-7AC8E68F67CD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Memoirist_V2.YarpGateway", "Memoirist_V2.YarpGateway\Memoirist_V2.YarpGateway.csproj", "{4C8235BF-8F27-4ECB-97C7-25B05BA487CA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Memoirist_V2.MigrationService", "Memoirist_V2.MigrationService\Memoirist_V2.MigrationService.csproj", "{991F0E95-65B9-4459-B6F7-D19A68945A27}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Memoirist_V2.StoryService", "Memoirist_V2.StoryService\Memoirist_V2.StoryService.csproj", "{1DC78798-347B-4FF9-86D4-0FD919A0F8C6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{204E600A-CEF1-4A6B-A10E-9785C047242E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{204E600A-CEF1-4A6B-A10E-9785C047242E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{204E600A-CEF1-4A6B-A10E-9785C047242E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{204E600A-CEF1-4A6B-A10E-9785C047242E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4E31DBC-31BC-4C5E-8F76-C9BFCEB8CEB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4E31DBC-31BC-4C5E-8F76-C9BFCEB8CEB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4E31DBC-31BC-4C5E-8F76-C9BFCEB8CEB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4E31DBC-31BC-4C5E-8F76-C9BFCEB8CEB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE5B9AA8-CF2B-4402-B0CC-7AC8E68F67CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE5B9AA8-CF2B-4402-B0CC-7AC8E68F67CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE5B9AA8-CF2B-4402-B0CC-7AC8E68F67CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE5B9AA8-CF2B-4402-B0CC-7AC8E68F67CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C8235BF-8F27-4ECB-97C7-25B05BA487CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C8235BF-8F27-4ECB-97C7-25B05BA487CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C8235BF-8F27-4ECB-97C7-25B05BA487CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C8235BF-8F27-4ECB-97C7-25B05BA487CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{991F0E95-65B9-4459-B6F7-D19A68945A27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{991F0E95-65B9-4459-B6F7-D19A68945A27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{991F0E95-65B9-4459-B6F7-D19A68945A27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{991F0E95-65B9-4459-B6F7-D19A68945A27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DC78798-347B-4FF9-86D4-0FD919A0F8C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DC78798-347B-4FF9-86D4-0FD919A0F8C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DC78798-347B-4FF9-86D4-0FD919A0F8C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DC78798-347B-4FF9-86D4-0FD919A0F8C6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5A6F57A2-1349-4C9C-9CF0-2C07070AEF06}
+	EndGlobalSection
+EndGlobal

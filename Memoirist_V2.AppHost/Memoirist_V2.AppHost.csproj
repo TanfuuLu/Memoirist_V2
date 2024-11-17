@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsAspireHost>true</IsAspireHost>
+    <UserSecretsId>688b8add-2861-4be6-88f4-d0aa1f06b320</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="8.2.0" />
+    <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="8.2.2" />
+    <PackageReference Include="Aspire.Hosting.RabbitMQ" Version="8.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Memoirist_V2.MigrationService\Memoirist_V2.MigrationService.csproj" />
+    <ProjectReference Include="..\Memoirist_V2.StoryService\Memoirist_V2.StoryService.csproj" />
+    <ProjectReference Include="..\Memoirist_V2.WriterService\Memoirist_V2.WriterService.csproj" />
+    <ProjectReference Include="..\Memoirist_V2.YarpGateway\Memoirist_V2.YarpGateway.csproj" />
+  </ItemGroup>
+
+</Project>

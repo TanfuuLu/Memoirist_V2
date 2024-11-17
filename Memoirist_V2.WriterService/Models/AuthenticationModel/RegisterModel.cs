@@ -1,0 +1,11 @@
+﻿namespace Memoirist_V2.WriterService.Models.AuthenticationModel;
+
+public class RegisterModel {
+	public string? WriterFullname { get; set; }
+	public string? WriterUsername { get; set; }
+	public string? Account { get; set; }
+	public string? Password { get; set; }
+	public string? WriterGender { get; set; }
+	public string? WriterBirthday { get; set; }
+	public string? WriterPhone { get; set; }
+}

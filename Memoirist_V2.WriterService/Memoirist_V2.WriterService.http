@@ -1,0 +1,6 @@
+@Memoirist_V2.WriterService_HostAddress = http://localhost:5198
+
+GET {{Memoirist_V2.WriterService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

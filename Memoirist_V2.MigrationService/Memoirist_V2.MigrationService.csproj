@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-Memoirist_V2.MigrationService-10aa2874-32c2-4f34-8f64-28c21e2a308c</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.2.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Memoirist_V2.ServiceDefaults\Memoirist_V2.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\Memoirist_V2.StoryService\Memoirist_V2.StoryService.csproj" />
+    <ProjectReference Include="..\Memoirist_V2.WriterService\Memoirist_V2.WriterService.csproj" />
+    <ProjectReference Include="..\Memoirist_V2.YarpGateway\Memoirist_V2.YarpGateway.csproj" />
+  </ItemGroup>
+</Project>

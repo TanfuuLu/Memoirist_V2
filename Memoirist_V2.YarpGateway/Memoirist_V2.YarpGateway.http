@@ -1,0 +1,6 @@
+@Memoirist_V2.YarpGateway_HostAddress = http://localhost:5017
+
+GET {{Memoirist_V2.YarpGateway_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
