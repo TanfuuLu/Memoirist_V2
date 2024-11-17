@@ -1,4 +1,5 @@
 using Memoirist_V2.MigrationService;
+using Memoirist_V2.PostService.DataContext;
 using Memoirist_V2.StoryService.DataContext;
 using Memoirist_V2.WriterService.DataContext;
 using Memoirist_V2.YarpGateway.DataContext;
@@ -11,5 +12,6 @@ builder.Services.AddOpenTelemetry().WithTracing(trace => trace.AddSource(nameof(
 builder.AddNpgsqlDbContext<WriterDbContext>("writerDb");
 builder.AddNpgsqlDbContext<AuthenticateDbContext>("authenDb");
 builder.AddNpgsqlDbContext<StoryDbContext>("storyDb");
+builder.AddNpgsqlDbContext<PostDbContext>("postDb");
 var host = builder.Build();
 host.Run();

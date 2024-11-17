@@ -14,6 +14,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Memoirist_V2.MigrationServi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Memoirist_V2.StoryService", "Memoirist_V2.StoryService\Memoirist_V2.StoryService.csproj", "{1DC78798-347B-4FF9-86D4-0FD919A0F8C6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Memoirist_V2.PostService", "Memoirist_V2.PostService\Memoirist_V2.PostService.csproj", "{2177417D-062D-48EC-8D98-9CC68B392633}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{1DC78798-347B-4FF9-86D4-0FD919A0F8C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DC78798-347B-4FF9-86D4-0FD919A0F8C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DC78798-347B-4FF9-86D4-0FD919A0F8C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2177417D-062D-48EC-8D98-9CC68B392633}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2177417D-062D-48EC-8D98-9CC68B392633}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2177417D-062D-48EC-8D98-9CC68B392633}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2177417D-062D-48EC-8D98-9CC68B392633}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

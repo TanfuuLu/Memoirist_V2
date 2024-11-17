@@ -1,3 +1,4 @@
+using Memoirist_V2.PostService.DataContext;
 using Memoirist_V2.StoryService.DataContext;
 using Memoirist_V2.StoryService.Mapping;
 using Memoirist_V2.StoryService.RepoPattern.RabbitMess;
@@ -39,7 +40,8 @@ builder.AddNpgsqlDbContext<StoryDbContext>("storyDb");
 builder.Services.AddScoped<IRabbitRepository, RabbitStoryRepository>();
 builder.Services.AddScoped<IStoryRepository, StoryRepository>();
 builder.Services.AddAutoMapper(typeof(StoryMappingProfile).Assembly);
-
+//Post Service
+builder.AddNpgsqlDbContext<PostDbContext>("postDb");
 
 builder.Services.AddReverseProxy()
 	.LoadFromConfig(builder.Configuration.GetSection("ReverseProxy")).AddServiceDiscoveryDestinationResolver();

@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Memoirist_V2.PostService\Memoirist_V2.PostService.csproj" />
     <ProjectReference Include="..\Memoirist_V2.ServiceDefaults\Memoirist_V2.ServiceDefaults.csproj" />
     <ProjectReference Include="..\Memoirist_V2.StoryService\Memoirist_V2.StoryService.csproj" />
     <ProjectReference Include="..\Memoirist_V2.WriterService\Memoirist_V2.WriterService.csproj" />

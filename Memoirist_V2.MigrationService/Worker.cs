@@ -1,3 +1,4 @@
+using Memoirist_V2.PostService.DataContext;
 using Memoirist_V2.StoryService.DataContext;
 using Memoirist_V2.WriterService.DataContext;
 using Memoirist_V2.YarpGateway.DataContext;
@@ -19,6 +20,8 @@ public class Worker(IServiceProvider serviceProvider, IHostApplicationLifetime h
 			var writerDbContext = scope.ServiceProvider.GetRequiredService<WriterDbContext>();
 			var yarpAuthenDbContext = scope.ServiceProvider.GetRequiredService<AuthenticateDbContext>();
 			var storyDbContext = scope.ServiceProvider.GetRequiredService<StoryDbContext>();
+			var postDbContext = scope.ServiceProvider.GetRequiredService<PostDbContext>();
+
 
 			await EnsureDatabaseAsync(writerDbContext, cancellationToken);
 			await RunMigrationAsync(writerDbContext, cancellationToken);
@@ -28,6 +31,9 @@ public class Worker(IServiceProvider serviceProvider, IHostApplicationLifetime h
 
 			await EnsureDatabaseAsync(storyDbContext, cancellationToken);
 			await RunMigrationAsync(storyDbContext, cancellationToken);
+
+			await EnsureDatabaseAsync(postDbContext, cancellationToken);
+			await RunMigrationAsync(postDbContext, cancellationToken);
 		}
 		catch(Exception ex) {
 			activity?.RecordException(ex);
