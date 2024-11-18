@@ -14,6 +14,9 @@ public interface IWriterRepository {
 	Task<Writer> UpdateWriter(int id, Writer updateItem);
 	Task<Writer> AddStoryToList(int storyId, int writerId);
 	Task<Writer> DeleteStoryFromList(int storyId, int writerId);
+	Task<Writer> AddPostToList(int postId, int writerId);
+	Task<Writer> DeletePostFromList(int postId, int writerId);
+
 	Task FollowWriter(int idWriter, int idWriterFollow);
 	Task FollowStory(int idWriter, int idStory);
 

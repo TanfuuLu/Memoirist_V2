@@ -1,4 +1,7 @@
 using Memoirist_V2.PostService.DataContext;
+using Memoirist_V2.PostService.Mapping;
+using Memoirist_V2.PostService.RepoPattern;
+using Memoirist_V2.PostService.RepoPattern.RabbitMQ;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +15,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.AddNpgsqlDbContext<PostDbContext>("postDb");
 builder.AddRabbitMQClient("rabbitMess");
+builder.Services.AddAutoMapper(typeof(PostMappingProfile).Assembly);
+builder.Services.AddScoped<IPostRabbitRepository, PostRabbitRepository>();
+builder.Services.AddScoped<IPostRepository, PostRepository>();
 
 var app = builder.Build();
 

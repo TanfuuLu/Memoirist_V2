@@ -3,7 +3,7 @@
 namespace Memoirist_V2.StoryService.RepoPattern.StoryRepo;
 
 public interface IStoryRepository{
-	Task<List<Story>> GetListStoryOfWriter();
+	Task<List<Story>> GetListStoryOfWriter(int writerId);
 	Task<Story> GetStory(int storyId); 
 	Task<Story> SearchStory(string? storyName);
 	Task<List<Story>> GetListStory();

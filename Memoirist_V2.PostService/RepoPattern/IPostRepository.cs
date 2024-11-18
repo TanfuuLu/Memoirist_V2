@@ -8,4 +8,5 @@ public interface IPostRepository {
 	Task<Post> DeletePost(int id);
 	Task<Post> GetPostById(int id);
 	Task<List<Post>> GetAllPost();
+	Task<List<Post>> GetListByWriterId(int writerId);
 }

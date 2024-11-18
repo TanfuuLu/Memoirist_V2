@@ -43,4 +43,9 @@ public class PostController : ControllerBase {
 		var item = await postRepository.GetPostById(id);
 		return Ok(item);
 	}
+	[HttpGet("writer/get-list-by-writer-{id:int}")]
+	public async Task<IActionResult> GetListPostByWriterId([FromRoute]int id) {
+		var listItem = await postRepository.GetListByWriterId(id);
+		return Ok(listItem);
+	}
 }

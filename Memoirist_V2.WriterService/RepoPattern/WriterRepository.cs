@@ -151,4 +151,24 @@ public class WriterRepository : IWriterRepository {
 		await dbContext.SaveChangesAsync();
 		return item;
 	}
+
+	public async Task<Writer> AddPostToList(int postId, int writerId) {
+		var item = await dbContext.Writers.FirstOrDefaultAsync(x => x.WriterId == writerId);
+		if(item == null) {
+			return null;
+		}
+		item.ListPostId.Add(postId);
+		await dbContext.SaveChangesAsync();
+		return item;
+	}
+
+	public async Task<Writer> DeletePostFromList(int postId, int writerId) {
+		var item = await dbContext.Writers.FirstOrDefaultAsync(x => x.WriterId == writerId);
+		if(item == null) {
+			return null;
+		}
+		item.ListPostId.Remove(postId);
+		await dbContext.SaveChangesAsync();
+		return item;
+	}
 }

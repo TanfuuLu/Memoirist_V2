@@ -54,15 +54,12 @@ public class StoryRepository : IStoryRepository {
 		return listResult;
 	}
 
-	public async Task<List<Story>> GetListStoryOfWriter() {
-		var listItem = await rabbitRepository.ReceiveListFollowingStoryOfWriter("StoryOfWriterQueue");
+	public async Task<List<Story>> GetListStoryOfWriter(int writerId) {
 		var storiesDomain = await dbContext.Stories.ToListAsync();
 		var listStoryResult = new List<Story>();
 		foreach(var item in storiesDomain) {
-			foreach(var story in listItem) {
-				if(item.StoryId == story) {
-					listStoryResult.Add(item);
-				}
+			if(item.WriterStoryId == writerId) {
+				listStoryResult.Add(item);
 			}
 
 		}

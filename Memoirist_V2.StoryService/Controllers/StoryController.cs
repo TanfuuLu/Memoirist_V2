@@ -45,9 +45,9 @@ public class StoryController : ControllerBase {
 		var listItem = await storyRepository.GetListStoryFollowing();
 		return Ok(listItem);
 	}
-	[HttpGet("get-list-story-of-writer")]
-	public async Task<IActionResult> GetStoryOfWriter() {
-		var listItem = await storyRepository.GetListStoryOfWriter();
+	[HttpGet("writer-{id:int}/get-list-story-of-writer")]
+	public async Task<IActionResult> GetStoryOfWriter([FromRoute]int id) {
+		var listItem = await storyRepository.GetListStoryOfWriter(id);
 		return Ok(listItem);
 	}
 	[HttpDelete("delete-story/{id:int}")]

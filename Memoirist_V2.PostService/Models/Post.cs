@@ -7,7 +7,6 @@ public class Post {
 	[Key]
 	[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 	public int PostId { get; set; }
-	public string? PostName { get; set; }
 	public int? PostWriterId { get; set; }
 	public string? PostWriterAvatar {  get; set; }
 	public string? PostWriterName { get; set; }

@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Memoirist_V2.PostService.Migrations
 {
     [DbContext(typeof(PostDbContext))]
-    [Migration("20241117165720_PostMigration_V1")]
-    partial class PostMigration_V1
+    [Migration("20241118024652_PostMigration_V2")]
+    partial class PostMigration_V2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -74,9 +74,6 @@ namespace Memoirist_V2.PostService.Migrations
 
                     b.Property<int?>("PostLike")
                         .HasColumnType("integer");
-
-                    b.Property<string>("PostName")
-                        .HasColumnType("text");
 
                     b.Property<string>("PostWriterAvatar")
                         .HasColumnType("text");

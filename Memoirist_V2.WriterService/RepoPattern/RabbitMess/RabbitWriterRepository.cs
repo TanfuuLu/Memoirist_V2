@@ -1,4 +1,5 @@
-﻿using Memoirist_V2.WriterService.Models;
+﻿		
+using Memoirist_V2.WriterService.Models;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -97,7 +98,13 @@ public class RabbitWriterRepository : IRabbitWriterRepository {
 			return item;
 		}
 	}
-	
 
-	
+	public void SendListPostOfWriter(List<int>? listPostWriterId, string QueueName) {
+		using var connection = _factory.CreateConnection();
+		using var channel = connection.CreateModel();
+		channel.QueueDeclare(QueueName, false, false, false, null);
+		var message = JsonConvert.SerializeObject(listPostWriterId);
+		var body = Encoding.UTF8.GetBytes(message);
+		channel.BasicPublish("", routingKey: QueueName, body: body);
+	}
 }

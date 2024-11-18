@@ -1,4 +1,6 @@
 using Memoirist_V2.PostService.DataContext;
+using Memoirist_V2.PostService.RepoPattern.RabbitMQ;
+using Memoirist_V2.PostService.RepoPattern;
 using Memoirist_V2.StoryService.DataContext;
 using Memoirist_V2.StoryService.Mapping;
 using Memoirist_V2.StoryService.RepoPattern.RabbitMess;
@@ -15,6 +17,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Memoirist_V2.PostService.Mapping;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
@@ -42,6 +45,9 @@ builder.Services.AddScoped<IStoryRepository, StoryRepository>();
 builder.Services.AddAutoMapper(typeof(StoryMappingProfile).Assembly);
 //Post Service
 builder.AddNpgsqlDbContext<PostDbContext>("postDb");
+builder.Services.AddScoped<IPostRabbitRepository, PostRabbitRepository>();
+builder.Services.AddScoped<IPostRepository, PostRepository>();
+builder.Services.AddAutoMapper(typeof(PostMappingProfile).Assembly);
 
 builder.Services.AddReverseProxy()
 	.LoadFromConfig(builder.Configuration.GetSection("ReverseProxy")).AddServiceDiscoveryDestinationResolver();

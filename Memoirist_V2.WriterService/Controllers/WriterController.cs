@@ -42,23 +42,16 @@ public class WriterController : ControllerBase {
 			return NotFound("User not found");
 		}
 		int writerId = await rabbitRepository.ReceiveInt("WriterIdQueue");
-		int storyId = await rabbitRepository.ReceiveInt("StoryIdQueue");
-		//if(writerId != 0 && storyId != 0) {
-		//	writerRepository.UpdateWriterWhenAddStory(writerId,storyId);
-		//}
-		//int deleteStoryId = await rabbitRepository.ReceiveInt("DeleteStoryIdQueue");
-		//if(deleteStoryId != 0) {
-		//	writerRepository.UpdateWriterWhenDeleteStory(id, deleteStoryId);
-		//}
 		if(writerId == id) {
 			var writer = await writerRepository.GetWriterById(writerId);
 			rabbitRepository.SendListFollowingStoryIdOfWriter(writer.ListFollowingStoryId, "FollowingStoryIdQueue");
 			rabbitRepository.SendListStoryOfWriter(writer.ListStoryId, "StoryOfWriterQueue");
+			rabbitRepository.SendListPostOfWriter(writer.ListPostId, "PostOfWriterQueue");
 			return Ok(writer);
 		} else {
-			
 			rabbitRepository.SendListFollowingStoryIdOfWriter(writerTwo.ListFollowingStoryId, "FollowingStoryIdQueue");
 			rabbitRepository.SendListStoryOfWriter(writerTwo.ListStoryId, "StoryOfWriterQueue");
+			rabbitRepository.SendListPostOfWriter(writerTwo.ListPostId, "PostOfWriterQueue");
 			return Ok(writerTwo);
 		}
 	}
@@ -127,5 +120,15 @@ public class WriterController : ControllerBase {
 	public async Task<IActionResult> DeleteStoryFromWriter([FromRoute]int writerId, [FromRoute]int id) {
 		var item = await writerRepository.DeleteStoryFromList(id, writerId);
 		return Ok(item);	
+	}
+	[HttpPost("writer-{writerId:int}/add-post-{id:int}")]
+	public async Task<IActionResult> AddPostToWriter([FromRoute]int writerId, [FromRoute]int id) {
+		var item = await writerRepository.AddPostToList(id,writerId);
+		return Ok(item);
+	}
+	[HttpDelete("writer-{writerId:int}/delete-post-{id:int}")]
+	public async Task<IActionResult> DeletePostToWriter([FromRoute]int writerId, [FromRoute]int id) {
+		var item = await writerRepository.DeletePostFromList(id,writerId);
+		return Ok(item);
 	}
 }

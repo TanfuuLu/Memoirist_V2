@@ -15,9 +15,11 @@ public class PostRepository : IPostRepository {
 	}
 
 	public async Task<Post> AddPost(Post postItem) {
+		DateTime dateTime = DateTime.Now;
+		postItem.PostDateTime = dateTime.ToString("dd/MM/yyyy");
+		postItem.PostLike = 0;
 		if(postItem != null) {
 			postDbContext.Posts.Add(postItem);
-			
 		}
 		await postDbContext.SaveChangesAsync();
 		return postItem;
@@ -40,7 +42,7 @@ public class PostRepository : IPostRepository {
 
 	public async Task<Post> GetPostById(int id) {
 		var findItem = await postDbContext.Posts.FirstOrDefaultAsync(x => x.PostId == id);
-		if(findItem == null ) {
+		if(findItem == null) {
 			return null;
 		}
 		return findItem;
@@ -56,5 +58,15 @@ public class PostRepository : IPostRepository {
 		}
 		await postDbContext.SaveChangesAsync();
 		return findItem;
+	}
+	public async Task<List<Post>> GetListByWriterId(int writerId) {
+		var listDomain = await postDbContext.Posts.ToListAsync();
+		List<Post> posts = new List<Post>();
+		foreach(var item in listDomain) {
+			if(item.PostWriterId == writerId) {
+				posts.Add(item);
+			}
+		}
+		return posts;
 	}
 }

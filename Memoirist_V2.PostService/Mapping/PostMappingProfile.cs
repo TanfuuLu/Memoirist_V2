@@ -4,8 +4,8 @@ using Memoirist_V2.PostService.Models.DTO;
 
 namespace Memoirist_V2.PostService.Mapping;
 
-public class MappingProfile : Profile {
-	public MappingProfile() {
+public class PostMappingProfile : Profile {
+	public PostMappingProfile() {
 		CreateMap<Post, AddPostDTO>().ReverseMap();
 	}
 }

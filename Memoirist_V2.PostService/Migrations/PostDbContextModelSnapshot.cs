@@ -72,9 +72,6 @@ namespace Memoirist_V2.PostService.Migrations
                     b.Property<int?>("PostLike")
                         .HasColumnType("integer");
 
-                    b.Property<string>("PostName")
-                        .HasColumnType("text");
-
                     b.Property<string>("PostWriterAvatar")
                         .HasColumnType("text");
 
