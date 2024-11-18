@@ -46,14 +46,13 @@ public class YarpAuthenController : ControllerBase {
 			PhoneNumber = registerItem.WriterPhone,
 			//Property for User
 			WriterFullname = registerItem.WriterFullname,
-			WriterAvatar = registerItem.WriterAvatar,
+			WriterAvatar = "none",
 			WriterBio = "string",
 			WriterGender = registerItem.WriterGender,
 			WriterBirthday = registerItem.WriterBirthday,
 			WriterPhone = registerItem.WriterPhone,
 			WriterUsername = registerItem.WriterUsername,
 			WriterEmail = registerItem.WriterEmail
-			
 		};
 		var result = await userManager.CreateAsync(item, registerItem.Password);
 		if(!result.Succeeded) {

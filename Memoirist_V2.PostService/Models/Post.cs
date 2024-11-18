@@ -14,4 +14,5 @@ public class Post {
 	public string? PostContext {  get; set; }
 	public int? PostLike { get; set; }
 	public List<CommentPost> ListCommentPost { get; set; } = new List<CommentPost>();
+	public List<int>? ListWriterLikePost { get; set; } = new List<int>();
 }

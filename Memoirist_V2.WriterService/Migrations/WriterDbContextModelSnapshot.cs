@@ -42,7 +42,16 @@ namespace Memoirist_V2.WriterService.Migrations
                     b.Property<List<int>>("ListFollowingStoryId")
                         .HasColumnType("integer[]");
 
+                    b.Property<List<int>>("ListLikesPost")
+                        .HasColumnType("integer[]");
+
+                    b.Property<List<int>>("ListPostCommented")
+                        .HasColumnType("integer[]");
+
                     b.Property<List<int>>("ListPostId")
+                        .HasColumnType("integer[]");
+
+                    b.Property<List<int>>("ListStoryCommented")
                         .HasColumnType("integer[]");
 
                     b.Property<List<int>>("ListStoryId")

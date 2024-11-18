@@ -11,6 +11,9 @@ public class CommentPost {
 	public int? CommentWriterId {  get; set; }
 	public string? CommentWriterAvatar {  get; set; }
 	public string? CommentWriterName { get;set; }
+	public string? CommentDate { get; set; }
 	public int? CommentLike {  get; set; }
+	public int PostId { get; set; }
+	public Post? Post { get; set; }
 
 }

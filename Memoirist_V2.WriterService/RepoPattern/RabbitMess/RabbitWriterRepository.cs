@@ -14,22 +14,15 @@ public class RabbitWriterRepository : IRabbitWriterRepository {
 			HostName = "localhost"
 		};
 	}
-	public void SendListFollowingStoryIdOfWriter(List<int>? listFollowingStoryId,string QueueName ) { 
+	public void SendListInt(List<int>? listInt,string QueueName ) { 
 		using var connection = _factory.CreateConnection();
 		using var channel = connection.CreateModel();
 		channel.QueueDeclare(QueueName, false, false, false, null);
-		var message = JsonConvert.SerializeObject(listFollowingStoryId);
+		var message = JsonConvert.SerializeObject(listInt);
 		var body = Encoding.UTF8.GetBytes(message);
 		channel.BasicPublish("",routingKey:QueueName, body:body);
 	}
-	public void SendListStoryOfWriter(List<int>? listStoryId, string QueueName) {
-		using var connection = _factory.CreateConnection();
-		using var channel = connection.CreateModel();
-		channel.QueueDeclare(QueueName, false,false,false,null);
-		var message = JsonConvert.SerializeObject(listStoryId);
-		var body = Encoding.UTF8.GetBytes(message);
-		channel.BasicPublish("",routingKey:QueueName, body:body);	
-	}
+
 	public void SendMessage(Writer Item, string QueueName) {
 		using(var connection = _factory.CreateConnection()) {
 			using(var channel = connection.CreateModel()) {
@@ -99,12 +92,5 @@ public class RabbitWriterRepository : IRabbitWriterRepository {
 		}
 	}
 
-	public void SendListPostOfWriter(List<int>? listPostWriterId, string QueueName) {
-		using var connection = _factory.CreateConnection();
-		using var channel = connection.CreateModel();
-		channel.QueueDeclare(QueueName, false, false, false, null);
-		var message = JsonConvert.SerializeObject(listPostWriterId);
-		var body = Encoding.UTF8.GetBytes(message);
-		channel.BasicPublish("", routingKey: QueueName, body: body);
-	}
+
 }

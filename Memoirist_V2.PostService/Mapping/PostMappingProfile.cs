@@ -7,5 +7,6 @@ namespace Memoirist_V2.PostService.Mapping;
 public class PostMappingProfile : Profile {
 	public PostMappingProfile() {
 		CreateMap<Post, AddPostDTO>().ReverseMap();
+		CreateMap<CommentPost, AddCommentPost>().ReverseMap();
 	}
 }

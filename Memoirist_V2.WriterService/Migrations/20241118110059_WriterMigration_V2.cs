@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Memoirist_V2.WriterService.Migrations
 {
     /// <inheritdoc />
-    public partial class YarpAuthenMigration_v1 : Migration
+    public partial class WriterMigration_V2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -29,8 +29,11 @@ namespace Memoirist_V2.WriterService.Migrations
                     WriterPhone = table.Column<string>(type: "text", nullable: true),
                     WriterEmail = table.Column<string>(type: "text", nullable: true),
                     ListPostId = table.Column<List<int>>(type: "integer[]", nullable: true),
+                    ListLikesPost = table.Column<List<int>>(type: "integer[]", nullable: true),
+                    ListPostCommented = table.Column<List<int>>(type: "integer[]", nullable: true),
                     ListFollowingStoryId = table.Column<List<int>>(type: "integer[]", nullable: true),
                     ListStoryId = table.Column<List<int>>(type: "integer[]", nullable: true),
+                    ListStoryCommented = table.Column<List<int>>(type: "integer[]", nullable: true),
                     ListFollower = table.Column<List<int>>(type: "integer[]", nullable: true),
                     ListFollowing = table.Column<List<int>>(type: "integer[]", nullable: true)
                 },

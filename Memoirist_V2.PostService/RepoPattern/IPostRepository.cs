@@ -9,4 +9,12 @@ public interface IPostRepository {
 	Task<Post> GetPostById(int id);
 	Task<List<Post>> GetAllPost();
 	Task<List<Post>> GetListByWriterId(int writerId);
+	Task<Post> LikePost(int idPost, int writerId);
+
+
+	Task<List<CommentPost>> GetAllCommentsPost(int idPost);	
+	Task<CommentPost> AddComment(CommentPost commentPost);
+	Task<CommentPost> UpdateComment(int commentId, string newContext);
+	Task<CommentPost> DeleteCommentPost(int id);
+
 }

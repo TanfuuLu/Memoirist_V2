@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Memoirist_V2.WriterService.Migrations
 {
     [DbContext(typeof(WriterDbContext))]
-    [Migration("20241110151914_YarpAuthenMigration_v1")]
-    partial class YarpAuthenMigration_v1
+    [Migration("20241118110059_WriterMigration_V2")]
+    partial class WriterMigration_V2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,7 +45,16 @@ namespace Memoirist_V2.WriterService.Migrations
                     b.Property<List<int>>("ListFollowingStoryId")
                         .HasColumnType("integer[]");
 
+                    b.Property<List<int>>("ListLikesPost")
+                        .HasColumnType("integer[]");
+
+                    b.Property<List<int>>("ListPostCommented")
+                        .HasColumnType("integer[]");
+
                     b.Property<List<int>>("ListPostId")
+                        .HasColumnType("integer[]");
+
+                    b.Property<List<int>>("ListStoryCommented")
                         .HasColumnType("integer[]");
 
                     b.Property<List<int>>("ListStoryId")

@@ -13,7 +13,7 @@ public class PostRepository : IPostRepository {
 		this.postDbContext = postDbContext;
 		this.postRabbitRepository = postRabbitRepository;
 	}
-
+	#region//PostService
 	public async Task<Post> AddPost(Post postItem) {
 		DateTime dateTime = DateTime.Now;
 		postItem.PostDateTime = dateTime.ToString("dd/MM/yyyy");
@@ -68,5 +68,44 @@ public class PostRepository : IPostRepository {
 			}
 		}
 		return posts;
+	}
+	#endregion
+	public async Task<CommentPost> AddComment(CommentPost commentPost) {
+		postDbContext.CommentPosts.Add(commentPost);
+		await postDbContext.SaveChangesAsync();
+		return commentPost;
+	}
+
+	public async Task<CommentPost> UpdateComment(int commentId, string newContext) {
+		var findItem = await postDbContext.CommentPosts.FirstOrDefaultAsync(x => x.CommentPostId == commentId);
+		if(newContext != "string" && newContext != " ") {
+			findItem.CommentContext = newContext;	
+		}
+		await postDbContext.SaveChangesAsync();
+		return findItem;
+	}
+
+	public async Task<CommentPost> DeleteCommentPost(int id) {
+		var findItem = await postDbContext.CommentPosts.FirstOrDefaultAsync(x => x.CommentPostId == id);
+		postDbContext.CommentPosts.Remove(findItem);
+		await		postDbContext.SaveChangesAsync();
+		return findItem;
+	}
+
+	public async Task<List<CommentPost>> GetAllCommentsPost(int idPost) {
+		var listDomain = await postDbContext.CommentPosts.ToListAsync();
+		List<CommentPost> commenofPost = new List<CommentPost>();
+		foreach(var post in listDomain) {
+			if(post.PostId == idPost) {
+				commenofPost.Add(post);
+			}
+		}
+		return commenofPost;
+	}
+	public async Task<Post> LikePost(int postId, int writerId) {
+		var findPost = await postDbContext.Posts.FirstOrDefaultAsync(x => x.PostId == postId);
+		findPost.ListWriterLikePost.Add(writerId);
+		await postDbContext.SaveChangesAsync();
+		return findPost;
 	}
 }

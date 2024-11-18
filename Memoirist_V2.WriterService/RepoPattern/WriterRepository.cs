@@ -47,8 +47,8 @@ public class WriterRepository : IWriterRepository {
 		if(writerDomain == null) {
 			return null;
 		} else {
-			rabbitWriterRepository.SendListFollowingStoryIdOfWriter(writerDomain.ListFollowingStoryId, "FollowingStoryIdQueue");//sent list following story when get profile
-			rabbitWriterRepository.SendListStoryOfWriter(writerDomain.ListStoryId, "StoryOfWriterQueue");// sent list story user when get profile
+			rabbitWriterRepository.SendListInt(writerDomain.ListFollowingStoryId, "FollowingStoryIdQueue");//sent list following story when get profile
+			rabbitWriterRepository.SendListInt(writerDomain.ListStoryId, "StoryOfWriterQueue");// sent list story user when get profile
 			return writerDomain;
 		}
 	}
@@ -99,28 +99,7 @@ public class WriterRepository : IWriterRepository {
 		}
 		await dbContext.SaveChangesAsync();
 	}
-	
-	public async Task<List<int>> GetListFollowingStoryId(int writerId) {
-		//Tim kiem writer dua tren id
-		var item = await dbContext.Writers.FirstOrDefaultAsync(x => x.WriterId == writerId);
-		if(item == null) {
-			return null;
-		}
-		if(item.ListFollowingStoryId == null) {
-			return null;
-		}
-		return item.ListFollowingStoryId;
-	}
-	public async Task<List<int>> GetListStoryOfWriter(int writerId) {
-		var item = await dbContext.Writers.FirstOrDefaultAsync(x => x.WriterId == writerId);
-		if(item == null) {
-			return null;
-		}
-		if(item.ListStoryId == null) {
-			return null;
-		}
-		return item.ListStoryId;
-	}
+	//Story Function
 	public async Task FollowStory(int idWriter, int idStory) {
 		var writerDomain = await dbContext.Writers.FirstOrDefaultAsync(x => x.WriterId == idWriter);
 		if(writerDomain == null) {
@@ -151,7 +130,7 @@ public class WriterRepository : IWriterRepository {
 		await dbContext.SaveChangesAsync();
 		return item;
 	}
-
+	//Post Function
 	public async Task<Writer> AddPostToList(int postId, int writerId) {
 		var item = await dbContext.Writers.FirstOrDefaultAsync(x => x.WriterId == writerId);
 		if(item == null) {
@@ -161,7 +140,6 @@ public class WriterRepository : IWriterRepository {
 		await dbContext.SaveChangesAsync();
 		return item;
 	}
-
 	public async Task<Writer> DeletePostFromList(int postId, int writerId) {
 		var item = await dbContext.Writers.FirstOrDefaultAsync(x => x.WriterId == writerId);
 		if(item == null) {
@@ -170,5 +148,24 @@ public class WriterRepository : IWriterRepository {
 		item.ListPostId.Remove(postId);
 		await dbContext.SaveChangesAsync();
 		return item;
+	}
+
+	public async Task CommentPost(int idWriter, int idPost) {
+		var findWriter = await dbContext.Writers.FirstOrDefaultAsync(x => x.WriterId == idWriter);
+		findWriter.ListPostCommented.Add(idPost);
+		await dbContext.SaveChangesAsync();
+	}
+
+	public async Task CommentStory(int idWriter, int idStory) {
+		var findWriter = await dbContext.Writers.FirstOrDefaultAsync( x=> x.WriterId == idWriter);
+		findWriter.ListStoryCommented.Add(idStory);
+		await dbContext.SaveChangesAsync();
+	}
+
+	public async Task<Writer> UpdateWriterAvatar(int id, string avatar) {
+		var findItem = await dbContext.Writers.FirstOrDefaultAsync(x => x.WriterId == id);
+		findItem.WriterAvatar = avatar;
+		await dbContext.SaveChangesAsync();
+		return findItem;
 	}
 }

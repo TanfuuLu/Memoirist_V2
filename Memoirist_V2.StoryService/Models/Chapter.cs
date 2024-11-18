@@ -7,11 +7,11 @@ public class Chapter {
 	[Key]
 	[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 	public int ChapterId { get; set; }
+	public int StoryId { get; set; }
 	public string? ChapterTitle { get; set; }
 	public string? ChapterContext { get; set; }
 	public int? ChapterNumber { get; set; }
 	public string? ChapterDateTime { get; set; }
 
-	public int StoryId { get; set; }
 	public Story? Story { get; set; }
 }

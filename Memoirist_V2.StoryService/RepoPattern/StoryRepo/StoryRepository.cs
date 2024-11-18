@@ -15,6 +15,9 @@ public class StoryRepository : IStoryRepository {
 		this.dbContext = dbContext;
 	}
 	public async Task<Story> AddStory(Story story) {
+		DateTime datetime =DateTime.Now;
+		story.StoryDateWrited = datetime.ToString("dd/dd/yyyy");
+		story.StoryLikes = 0;
 		dbContext.Stories.Add(story);
 		await dbContext.SaveChangesAsync();
 		var item = await dbContext.Stories.FirstOrDefaultAsync(x => x.StoryName == story.StoryName);

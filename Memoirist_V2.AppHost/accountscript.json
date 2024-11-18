@@ -1,0 +1,39 @@
+{
+  {
+    "writerFullname": "Admin Account",
+    "writerUsername": "admin",
+    "writerAvatar": "none",
+    "account": "admin@gmail.com",
+    "password": "admin03",
+    "writerGender": "Nam",
+    "writerBirthday": "18/11/2024",
+    "writerPhone": "000000000",
+    "writerEmail": "lutanfuu@gmail.com",
+    "roles": "Admin"
+  },
+  {
+    "writerFullname": "Trần Hoàng Ngọc Hân",
+    "writerUsername": "hantran",
+    "writerAvatar": "string",
+    "account": "hancute@gmail.com",
+    "password": "hantran03",
+    "writerGender": "Nữ",
+    "writerBirthday": "08/02/2003",
+    "writerPhone": "0335689578",
+    "writerEmail": "hantrancute@gmail.com",
+    "roles": "User"
+  },
+  {
+    "writerFullname": "Lư Trần Tấn Phúc",
+    "writerUsername": "lutanfuu",
+    "writerAvatar": "string",
+    "account": "lutanfuu@gmail.com",
+    "password": "tanfuu03",
+    "writerGender": "Nam",
+    "writerBirthday": "18/02/2003",
+    "writerPhone": "0335893073",
+    "writerEmail": "lutanfuu@gmail.com",
+    "roles": "User"
+  }
+
+}

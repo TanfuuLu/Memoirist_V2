@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
@@ -22,7 +23,8 @@ namespace Memoirist_V2.PostService.Migrations
                     PostWriterName = table.Column<string>(type: "text", nullable: true),
                     PostDateTime = table.Column<string>(type: "text", nullable: true),
                     PostContext = table.Column<string>(type: "text", nullable: true),
-                    PostLike = table.Column<int>(type: "integer", nullable: true)
+                    PostLike = table.Column<int>(type: "integer", nullable: true),
+                    ListWriterLikePost = table.Column<List<int>>(type: "integer[]", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -39,8 +41,9 @@ namespace Memoirist_V2.PostService.Migrations
                     CommentWriterId = table.Column<int>(type: "integer", nullable: true),
                     CommentWriterAvatar = table.Column<string>(type: "text", nullable: true),
                     CommentWriterName = table.Column<string>(type: "text", nullable: true),
+                    CommentDate = table.Column<string>(type: "text", nullable: true),
                     CommentLike = table.Column<int>(type: "integer", nullable: true),
-                    PostId = table.Column<int>(type: "integer", nullable: true)
+                    PostId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -49,7 +52,8 @@ namespace Memoirist_V2.PostService.Migrations
                         name: "FK_CommentPosts_Posts_PostId",
                         column: x => x.PostId,
                         principalTable: "Posts",
-                        principalColumn: "PostId");
+                        principalColumn: "PostId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

@@ -14,7 +14,6 @@ public class Comment {
 	public int? CommentLike {  get; set; }
 	public string? CommentContext { get; set; }
 	public string? CommentDateTime { get; set; }
-
 	public int StoryId { get; set; }
 	public Story? story { get; set; }
 }

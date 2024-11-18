@@ -20,11 +20,13 @@ public class Writer {
 
 	//Post
 	public List<int>? ListPostId { get; set; } = new List<int>();
+	public List<int>? ListLikesPost { get; set; } = new List<int>();
+	public List<int>? ListPostCommented { get; set; } = new List<int>();
 
 	//Story
 	public List<int>? ListFollowingStoryId {  get; set; } = new List<int>();
 	public List<int>? ListStoryId {  get; set; } = new List<int>();
-
+	public List<int>? ListStoryCommented { get; set; } = new List<int>();
 	//User
 	public List<int>? ListFollower { get; set; } = new List<int>();
 	public List<int>? ListFollowing { get; set; } = new List<int>();

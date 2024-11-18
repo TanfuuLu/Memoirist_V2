@@ -5,7 +5,6 @@ public class AddStoryDTO {
 	public string? StoryName { get; set; }
 	public string? StoryIntroduction { get; set; }
 	public string? StoryAuthor { get; set; }
-	public string? StoryLikes { get; set; }
 	public string? StoryPicture { get; set; }
 	public string? StoryDateWrited { get; set; }
 	public bool TermsAndConditionsCheck { get; set; }
