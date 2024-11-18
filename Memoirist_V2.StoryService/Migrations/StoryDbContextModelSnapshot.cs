@@ -33,8 +33,8 @@ namespace Memoirist_V2.StoryService.Migrations
                     b.Property<string>("ChapterContext")
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("ChapterDateTime")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<string>("ChapterDateTime")
+                        .HasColumnType("text");
 
                     b.Property<int?>("ChapterNumber")
                         .HasColumnType("integer");
@@ -63,17 +63,20 @@ namespace Memoirist_V2.StoryService.Migrations
                     b.Property<string>("CommentContext")
                         .HasColumnType("text");
 
-                    b.Property<DateTime?>("CommentDateTime")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<string>("CommentDateTime")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("CommentLike")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("CommentWriterId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("CommentWriterUsername")
+                        .HasColumnType("text");
 
                     b.Property<int>("StoryId")
                         .HasColumnType("integer");
-
-                    b.Property<int?>("WriterCommentId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("WriterCommentUsername")
-                        .HasColumnType("text");
 
                     b.HasKey("CommentId");
 
@@ -99,8 +102,8 @@ namespace Memoirist_V2.StoryService.Migrations
                     b.Property<string>("StoryIntroduction")
                         .HasColumnType("text");
 
-                    b.Property<string>("StoryLikes")
-                        .HasColumnType("text");
+                    b.Property<int?>("StoryLikes")
+                        .HasColumnType("integer");
 
                     b.Property<string>("StoryName")
                         .HasColumnType("text");

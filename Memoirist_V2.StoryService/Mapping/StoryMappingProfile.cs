@@ -8,6 +8,7 @@ public class StoryMappingProfile : Profile {
 	public StoryMappingProfile() {
 		CreateMap<Story, AddStoryDTO>().ReverseMap();
 		CreateMap<Story, ShowStoryDTO>().ReverseMap();
+		CreateMap<Chapter,AddChapterDTO>().ReverseMap();
 
 	}
 }

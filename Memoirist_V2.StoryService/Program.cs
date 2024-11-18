@@ -1,5 +1,6 @@
 using Memoirist_V2.StoryService.DataContext;
 using Memoirist_V2.StoryService.Mapping;
+using Memoirist_V2.StoryService.RepoPattern.ChapterRepo;
 using Memoirist_V2.StoryService.RepoPattern.RabbitMess;
 using Memoirist_V2.StoryService.RepoPattern.StoryRepo;
 
@@ -20,6 +21,7 @@ builder.AddRabbitMQClient("rabbitMess");
 
 builder.Services.AddScoped<IRabbitRepository, RabbitStoryRepository>();
 builder.Services.AddScoped<IStoryRepository, StoryRepository>();
+builder.Services.AddScoped<IChapterRepository, ChapterRepository>();
 var app = builder.Build();
 
 app.MapDefaultEndpoints();

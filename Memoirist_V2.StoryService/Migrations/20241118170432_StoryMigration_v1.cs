@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
@@ -7,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Memoirist_V2.StoryService.Migrations
 {
     /// <inheritdoc />
-    public partial class StoryMigration_V1 : Migration
+    public partial class StoryMigration_v1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -22,7 +21,7 @@ namespace Memoirist_V2.StoryService.Migrations
                     StoryName = table.Column<string>(type: "text", nullable: true),
                     StoryIntroduction = table.Column<string>(type: "text", nullable: true),
                     StoryAuthor = table.Column<string>(type: "text", nullable: true),
-                    StoryLikes = table.Column<string>(type: "text", nullable: true),
+                    StoryLikes = table.Column<int>(type: "integer", nullable: true),
                     StoryPicture = table.Column<string>(type: "text", nullable: true),
                     StoryDateWrited = table.Column<string>(type: "text", nullable: true),
                     TermsAndConditionsCheck = table.Column<bool>(type: "boolean", nullable: false)
@@ -38,11 +37,11 @@ namespace Memoirist_V2.StoryService.Migrations
                 {
                     ChapterId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    StoryId = table.Column<int>(type: "integer", nullable: false),
                     ChapterTitle = table.Column<string>(type: "text", nullable: true),
                     ChapterContext = table.Column<string>(type: "text", nullable: true),
                     ChapterNumber = table.Column<int>(type: "integer", nullable: true),
-                    ChapterDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    StoryId = table.Column<int>(type: "integer", nullable: false)
+                    ChapterDateTime = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -61,10 +60,11 @@ namespace Memoirist_V2.StoryService.Migrations
                 {
                     CommentId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    WriterCommentId = table.Column<int>(type: "integer", nullable: true),
-                    WriterCommentUsername = table.Column<string>(type: "text", nullable: true),
+                    CommentWriterId = table.Column<int>(type: "integer", nullable: true),
+                    CommentWriterUsername = table.Column<string>(type: "text", nullable: true),
+                    CommentLike = table.Column<int>(type: "integer", nullable: true),
                     CommentContext = table.Column<string>(type: "text", nullable: true),
-                    CommentDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    CommentDateTime = table.Column<string>(type: "text", nullable: true),
                     StoryId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
