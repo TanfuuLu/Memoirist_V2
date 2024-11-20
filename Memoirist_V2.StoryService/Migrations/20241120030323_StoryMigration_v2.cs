@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Memoirist_V2.StoryService.Migrations
 {
     /// <inheritdoc />
-    public partial class StoryMigration_v1 : Migration
+    public partial class StoryMigration_v2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -61,7 +61,6 @@ namespace Memoirist_V2.StoryService.Migrations
                     CommentId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CommentWriterId = table.Column<int>(type: "integer", nullable: true),
-                    CommentWriterUsername = table.Column<string>(type: "text", nullable: true),
                     CommentLike = table.Column<int>(type: "integer", nullable: true),
                     CommentContext = table.Column<string>(type: "text", nullable: true),
                     CommentDateTime = table.Column<string>(type: "text", nullable: true),

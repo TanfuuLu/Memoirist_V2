@@ -38,7 +38,26 @@ public class ChapterRepository : IChapterRepository {
 		throw new NotImplementedException();
 	}
 
-	public Task<List<Chapter>> GetAllChapterOfStory(int storyId) {
-		throw new NotImplementedException();
+	public async Task<List<Chapter>> GetAllChapterOfStory(int storyId) {
+		var listDomain = await storyDbContext.Chapters.ToListAsync();
+		List<Chapter> chapterList = new List<Chapter>();
+		foreach(var item in listDomain) {
+			if(item.StoryId == storyId) {
+				chapterList.Add(item);
+			}
+		}
+		return chapterList;
+	}
+
+	public async Task<Chapter> GetChapterToRead(int storyId, int chapterId) {
+		var listChapter = await storyDbContext.Chapters.ToListAsync();
+		List<Chapter> listResult = new List<Chapter>();
+		foreach(var item in listChapter) {
+			if(item.StoryId == storyId) {
+				listResult.Add(item);
+			}
+		}
+		var itemChapter = listResult.FirstOrDefault( x => x.ChapterId == chapterId);
+		return itemChapter;
 	}
 }

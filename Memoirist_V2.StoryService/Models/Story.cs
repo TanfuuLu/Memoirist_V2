@@ -15,6 +15,6 @@ public class Story {
 	public string? StoryPicture { get; set; }
 	public string? StoryDateWrited { get; set; }
 	public bool TermsAndConditionsCheck { get; set; }
-	public List<Comment>? StoryComment { get; set; }= new List<Comment>();
-	public List<Chapter>? Chapters { get; set; } = new List<Chapter>();
+	public ICollection<Comment>? StoryComment { get; set; }= new List<Comment>();
+	public ICollection<Chapter>? Chapters { get; set; } = new List<Chapter>();
 }

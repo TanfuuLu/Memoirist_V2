@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Memoirist_V2.PostService.Migrations
 {
     /// <inheritdoc />
-    public partial class PostMigration_V2 : Migration
+    public partial class PostMigration_V1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -14,6 +14,8 @@ public class StoryRepository : IStoryRepository {
 		this.rabbitRepository = rabbitRepository;
 		this.dbContext = dbContext;
 	}
+
+	
 	public async Task<Story> AddStory(Story story) {
 		DateTime datetime =DateTime.Now;
 		story.StoryDateWrited = datetime.ToString("dd/dd/yyyy");
@@ -23,6 +25,8 @@ public class StoryRepository : IStoryRepository {
 		var item = await dbContext.Stories.FirstOrDefaultAsync(x => x.StoryName == story.StoryName);
 		return item;
 	}
+
+	
 
 	public async Task<Story> DeleteStory(int storyId) {
 		var item = await dbContext.Stories.FirstOrDefaultAsync(x => x.StoryId == storyId);
@@ -34,6 +38,8 @@ public class StoryRepository : IStoryRepository {
 			return null;
 		}
 	}
+
+	
 
 	public async Task<List<Story>> GetListStory() {
 		var listResult = await dbContext.Stories.ToListAsync();
@@ -96,4 +102,35 @@ public class StoryRepository : IStoryRepository {
 			return null;
 		}
 	}
+	public async Task<Comment> AddComment(Comment comment,int writerId, int storyId) {
+		DateTime dateTime = DateTime.Now;
+		comment.CommentDateTime = dateTime.ToString("dd/MM/yyyy");
+		comment.CommentWriterId = writerId;
+		comment.CommentLike = 0;
+		comment.CommentWriterId = writerId;
+		comment.StoryId = storyId;
+		if(comment.CommentContext != null) {
+			dbContext.Comments.Add(comment);
+			await dbContext.SaveChangesAsync();
+			return comment;
+		} else {
+			return null;
+		}
+	}
+
+	public async Task<Comment> DeleteComment(int commentId) {
+		var item = await dbContext.Comments.FirstOrDefaultAsync(c => c.CommentId == commentId);
+		if(item != null) {
+			dbContext.Comments.Remove(item);
+			await dbContext.SaveChangesAsync();
+			return item;
+		} else {
+			return null;
+		}
+	}
+	public async Task<List<Comment>> GetListComment(int storyId) {
+		var listItem = await dbContext.Comments.Where(x => x.StoryId == storyId).ToListAsync();
+		return listItem;
+	}
+
 }

@@ -8,19 +8,17 @@
     "writerGender": "Nam",
     "writerBirthday": "18/11/2024",
     "writerPhone": "000000000",
-    "writerEmail": "lutanfuu@gmail.com",
     "roles": "Admin"
   },
   {
     "writerFullname": "Trần Hoàng Ngọc Hân",
     "writerUsername": "hantran",
     "writerAvatar": "string",
-    "account": "hancute@gmail.com",
+    "account": "hantrancute@gmail.com",
     "password": "hantran03",
     "writerGender": "Nữ",
     "writerBirthday": "08/02/2003",
     "writerPhone": "0335689578",
-    "writerEmail": "hantrancute@gmail.com",
     "roles": "User"
   },
   {
@@ -32,7 +30,6 @@
     "writerGender": "Nam",
     "writerBirthday": "18/02/2003",
     "writerPhone": "0335893073",
-    "writerEmail": "lutanfuu@gmail.com",
     "roles": "User"
   }
 

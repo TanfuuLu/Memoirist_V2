@@ -9,6 +9,8 @@ public class StoryMappingProfile : Profile {
 		CreateMap<Story, AddStoryDTO>().ReverseMap();
 		CreateMap<Story, ShowStoryDTO>().ReverseMap();
 		CreateMap<Chapter,AddChapterDTO>().ReverseMap();
+		CreateMap<Chapter,ShowChapterDTO>().ReverseMap();
+		CreateMap<Comment,AddCommentDTO>().ReverseMap();
 
 	}
 }

@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Memoirist_V2.StoryService.Migrations
 {
     [DbContext(typeof(StoryDbContext))]
-    [Migration("20241118170432_StoryMigration_v1")]
-    partial class StoryMigration_v1
+    [Migration("20241120030323_StoryMigration_v2")]
+    partial class StoryMigration_v2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -74,9 +74,6 @@ namespace Memoirist_V2.StoryService.Migrations
 
                     b.Property<int?>("CommentWriterId")
                         .HasColumnType("integer");
-
-                    b.Property<string>("CommentWriterUsername")
-                        .HasColumnType("text");
 
                     b.Property<int>("StoryId")
                         .HasColumnType("integer");

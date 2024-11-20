@@ -13,6 +13,6 @@ public class Post {
 	public string? PostDateTime { get; set; }
 	public string? PostContext {  get; set; }
 	public int? PostLike { get; set; }
-	public List<CommentPost> ListCommentPost { get; set; } = new List<CommentPost>();
+	public ICollection<CommentPost> ListCommentPost { get; set; } = new List<CommentPost>();
 	public List<int>? ListWriterLikePost { get; set; } = new List<int>();
 }

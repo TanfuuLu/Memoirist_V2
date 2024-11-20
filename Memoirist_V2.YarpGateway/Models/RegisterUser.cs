@@ -8,6 +8,5 @@ public class RegisterUser {
 	public string? WriterGender { get; set; }
 	public string? WriterBirthday { get; set; }
 	public string? WriterPhone { get; set; }
-	public string? WriterEmail { get; set; }
 	public string? Roles { get; set; }
 }

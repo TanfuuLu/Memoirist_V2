@@ -5,4 +5,6 @@ public class AddCommentPost {
 	public int? CommentWriterId { get; set; }
 	public string? CommentWriterAvatar { get; set; }
 	public string? CommentWriterName { get; set; }
+	public int PostId { get; set; }
+
 }

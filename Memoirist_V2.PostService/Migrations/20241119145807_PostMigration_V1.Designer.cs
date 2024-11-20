@@ -13,8 +13,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Memoirist_V2.PostService.Migrations
 {
     [DbContext(typeof(PostDbContext))]
-    [Migration("20241118110213_PostMigration_V2")]
-    partial class PostMigration_V2
+    [Migration("20241119145807_PostMigration_V1")]
+    partial class PostMigration_V1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

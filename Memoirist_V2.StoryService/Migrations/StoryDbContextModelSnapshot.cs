@@ -72,9 +72,6 @@ namespace Memoirist_V2.StoryService.Migrations
                     b.Property<int?>("CommentWriterId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("CommentWriterUsername")
-                        .HasColumnType("text");
-
                     b.Property<int>("StoryId")
                         .HasColumnType("integer");
 

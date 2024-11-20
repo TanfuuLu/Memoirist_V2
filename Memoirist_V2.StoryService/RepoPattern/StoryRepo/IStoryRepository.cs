@@ -11,4 +11,9 @@ public interface IStoryRepository{
 	Task<Story> AddStory(Story story);
 	Task<Story> UpdateStoryIntroduction(string newIntroduction, int id);
 	Task<Story> DeleteStory(int storyId);
-}
+
+	Task<List<Comment>> GetListComment(int storyId);
+	Task<Comment> AddComment(Comment comment, int writerId, int storyId);
+	Task<Comment> DeleteComment(int commentId);
+
+ }

@@ -8,9 +8,7 @@ public class Comment {
 	[Key]
 	[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 	public int CommentId { get; set; }
-
 	public int? CommentWriterId { get; set; }
-	public string? CommentWriterUsername { get; set; }
 	public int? CommentLike {  get; set; }
 	public string? CommentContext { get; set; }
 	public string? CommentDateTime { get; set; }

@@ -42,7 +42,7 @@ public class YarpAuthenController : ControllerBase {
 			UserName = registerItem.Account,
 			Password = registerItem.Password,
 			PasswordHash = registerItem.Password,
-			Email = registerItem.WriterEmail,
+			Email = registerItem.Account,
 			PhoneNumber = registerItem.WriterPhone,
 			//Property for User
 			WriterFullname = registerItem.WriterFullname,
@@ -52,7 +52,7 @@ public class YarpAuthenController : ControllerBase {
 			WriterBirthday = registerItem.WriterBirthday,
 			WriterPhone = registerItem.WriterPhone,
 			WriterUsername = registerItem.WriterUsername,
-			WriterEmail = registerItem.WriterEmail
+			WriterEmail = registerItem.Account
 		};
 		var result = await userManager.CreateAsync(item, registerItem.Password);
 		if(!result.Succeeded) {
