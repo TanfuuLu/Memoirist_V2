@@ -55,7 +55,7 @@ public class WriterController : ControllerBase {
 	[HttpGet("follow-writer-{id:int}/{idFollow:int}")]
 	public async Task<IActionResult> FollowWriter([FromRoute] int id, [FromRoute] int idFollow) {
 		await writerRepository.FollowWriter(id, idFollow);
-		var item = await writerRepository.GetWriterById(id);
+		var item = await writerRepository.GetWriterById(idFollow);
 		return Ok(item);
 	}
 	[HttpGet("writer-{id:int}/follow-story-{idStory:int}")]
