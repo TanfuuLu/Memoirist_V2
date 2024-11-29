@@ -12,6 +12,7 @@ public class Post {
 	public string? PostWriterName { get; set; }
 	public string? PostDateTime { get; set; }
 	public string? PostContext {  get; set; }
+	public List<string>? PostPictureUrl { get; set; } = new List<string>();
 	public int? PostLike { get; set; }
 	public ICollection<CommentPost> ListCommentPost { get; set; } = new List<CommentPost>();
 	public List<int>? ListWriterLikePost { get; set; } = new List<int>();

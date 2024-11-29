@@ -104,7 +104,15 @@ public class PostRepository : IPostRepository {
 	}
 	public async Task<Post> LikePost(int postId, int writerId) {
 		var findPost = await postDbContext.Posts.FirstOrDefaultAsync(x => x.PostId == postId);
-		findPost.ListWriterLikePost.Add(writerId);
+		
+		if(findPost.ListWriterLikePost.Contains(writerId)) {
+			findPost.ListWriterLikePost.Remove(writerId);
+			findPost.PostLike -= 1;
+		} else {
+			findPost.ListWriterLikePost.Add(writerId);
+			findPost.PostLike += 1;
+		}
+		
 		await postDbContext.SaveChangesAsync();
 		return findPost;
 	}

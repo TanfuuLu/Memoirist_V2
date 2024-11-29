@@ -5,4 +5,5 @@ public class AddPostDTO {
 	public string? PostWriterAvatar { get; set; }
 	public string? PostWriterName { get; set; }
 	public string? PostContext { get; set; }
+	public List<string>? PostPictureUrl { get; set; }
 }

@@ -11,11 +11,15 @@ namespace Memoirist_V2.PostService.Controllers;
 public class PostController : ControllerBase {
 	private readonly IPostRepository postRepository;
 	private readonly IMapper mapper;
+	private readonly IWebHostEnvironment env;
+	private readonly string _targetPath = @"E:\MyProject\VSProject\Memoirist_Fe\Memoirist\public\img\post_img\";
 
-	public PostController(IPostRepository postRepository, IMapper mapper) {
+	public PostController(IPostRepository postRepository, IMapper mapper, IWebHostEnvironment env) {
 		this.postRepository = postRepository;
 		this.mapper = mapper;
+		this.env = env;
 	}
+
 	[HttpGet("get-all-post")]
 	public async Task<IActionResult> GetAllPost() {
 		var list = await postRepository.GetAllPost();
@@ -80,4 +84,29 @@ public class PostController : ControllerBase {
 		var item = await postRepository.LikePost(postId, writerId);
 		return Ok(item);
 	}
+	[HttpPost("upload")]
+	public async Task<IActionResult> UploadFile([FromForm] IFormFile[] files) {
+
+		if(files == null || files.Length == 0) {
+			return BadRequest("No files uploaded.");
+		}
+
+		var fileNames = new List<string>();
+
+		if(!Directory.Exists(_targetPath)) {
+			Directory.CreateDirectory(_targetPath);
+		}
+
+		foreach(var file in files) {
+			var filePath = Path.Combine(_targetPath, file.FileName);
+
+			await using var stream = new FileStream(filePath, FileMode.Create);
+			await file.CopyToAsync(stream);
+
+			fileNames.Add(file.FileName); // Chỉ thêm tên file vào danh sách trả về.
+		}
+
+		return Ok(fileNames); // Trả về danh sách tên file.
+	}
+
 }

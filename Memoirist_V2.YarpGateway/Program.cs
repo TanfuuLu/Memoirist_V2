@@ -1,4 +1,4 @@
-using Memoirist_V2.PostService.DataContext;
+﻿using Memoirist_V2.PostService.DataContext;
 using Memoirist_V2.PostService.RepoPattern.RabbitMQ;
 using Memoirist_V2.PostService.RepoPattern;
 using Memoirist_V2.StoryService.DataContext;
@@ -90,6 +90,12 @@ builder.Services.Configure<IdentityOptions>(options => {
 	options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+ ";
 	options.User.RequireUniqueEmail = false;
 });
+builder.Services.AddCors(options => {
+	options.AddPolicy("AllowAngularApp",
+	    policy => policy.WithOrigins("http://localhost:4200") // Angular chạy trên cổng 4200
+				  .AllowAnyHeader()
+				  .AllowAnyMethod());
+});
 var app = builder.Build();
 
 app.MapDefaultEndpoints();
@@ -102,6 +108,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("AllowAngularApp");
 app.UseAuthentication();	
 app.UseAuthorization();
 

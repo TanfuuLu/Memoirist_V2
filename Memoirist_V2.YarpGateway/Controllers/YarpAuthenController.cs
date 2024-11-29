@@ -46,8 +46,8 @@ public class YarpAuthenController : ControllerBase {
 			PhoneNumber = registerItem.WriterPhone,
 			//Property for User
 			WriterFullname = registerItem.WriterFullname,
-			WriterAvatar = "none",
-			WriterBio = "string",
+			WriterAvatar = "defaultavatar.jpg",
+			WriterBio = "No Bio Yet",
 			WriterGender = registerItem.WriterGender,
 			WriterBirthday = registerItem.WriterBirthday,
 			WriterPhone = registerItem.WriterPhone,
@@ -68,7 +68,7 @@ public class YarpAuthenController : ControllerBase {
 		return Ok("Register Successed");
 	}
 	[HttpPost("login")]
-	public async Task<IActionResult> Login(LoginUser LoginItem) {
+	public async Task<IActionResult> Login([FromBody]LoginUser LoginItem) {
 		User user = await userManager.FindByEmailAsync(LoginItem.Account);
 		if(user == null) {
 			return BadRequest("not found account");
@@ -115,7 +115,7 @@ public class YarpAuthenController : ControllerBase {
 				IsEssential = true,
 				SameSite = SameSiteMode.None
 			});
-		return new { token = writedToken, user = user.WriterUsername };
+		return new { token = writedToken, user = user.WriterId };
 	}
 
 }

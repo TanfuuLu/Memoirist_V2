@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Memoirist_V2.PostService.Migrations
 {
     /// <inheritdoc />
-    public partial class PostMigration_V1 : Migration
+    public partial class PostMigration_v1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -23,6 +23,7 @@ namespace Memoirist_V2.PostService.Migrations
                     PostWriterName = table.Column<string>(type: "text", nullable: true),
                     PostDateTime = table.Column<string>(type: "text", nullable: true),
                     PostContext = table.Column<string>(type: "text", nullable: true),
+                    PostPictureUrl = table.Column<List<string>>(type: "text[]", nullable: true),
                     PostLike = table.Column<int>(type: "integer", nullable: true),
                     ListWriterLikePost = table.Column<List<int>>(type: "integer[]", nullable: true)
                 },
