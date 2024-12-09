@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using MailKit.Net.Smtp;
 using Memoirist_V2.YarpGateway.Models;
 using Memoirist_V2.YarpGateway.RabbitMess;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using MimeKit;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -18,6 +20,7 @@ public class YarpAuthenController : ControllerBase {
 	private readonly IConfiguration configuration;
 	private readonly IMapper mapper;
 	private readonly IRabbitYarpRepository rabbitRepository;
+	private readonly SmtpSetting smtpSetting;
 
 	public YarpAuthenController(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration configuration, IMapper mapper, IRabbitYarpRepository rabbitRepository) {
 		this.userManager = userManager;
@@ -25,6 +28,8 @@ public class YarpAuthenController : ControllerBase {
 		this.configuration = configuration;
 		this.mapper = mapper;
 		this.rabbitRepository = rabbitRepository;
+		smtpSetting = configuration.GetSection("SmtpSettings").Get<SmtpSetting>();
+
 	}
 
 	[HttpPost("register")]
@@ -60,7 +65,7 @@ public class YarpAuthenController : ControllerBase {
 		}
 		if(registerItem.Roles == "Admin") {
 			await userManager.AddToRoleAsync(await userManager.FindByEmailAsync(item.Email), "Admin");
-		} else if(registerItem.Roles == "User"){
+		} else if(registerItem.Roles == "User") {
 			await userManager.AddToRoleAsync(await userManager.FindByEmailAsync(item.Email), "User");
 		}
 		//Send item to WriterService with RabbitMQ.
@@ -68,7 +73,7 @@ public class YarpAuthenController : ControllerBase {
 		return Ok("Register Successed");
 	}
 	[HttpPost("login")]
-	public async Task<IActionResult> Login([FromBody]LoginUser LoginItem) {
+	public async Task<IActionResult> Login([FromBody] LoginUser LoginItem) {
 		User user = await userManager.FindByEmailAsync(LoginItem.Account);
 		if(user == null) {
 			return BadRequest("not found account");
@@ -117,5 +122,68 @@ public class YarpAuthenController : ControllerBase {
 			});
 		return new { token = writedToken, user = user.WriterId };
 	}
+
+	[HttpPost("forgot-password")]
+	public async Task<IActionResult> ForgotPassword([FromQuery]string writerEmail) {
+		User user = await userManager.FindByEmailAsync(writerEmail);
+		if(user == null) {
+			return NotFound();
+		}
+		var resetToken = await userManager.GeneratePasswordResetTokenAsync(user);
+		var verificationCode = Convert.ToBase64String(Encoding.UTF8.GetBytes(resetToken));
+		await SendVerificationCode(writerEmail, verificationCode);
+		return Ok("Verification email send");
+	}
+	[HttpPost("verify-code")]
+	public async Task<IActionResult> VerifyCode(VerifyCodeRequest request) {
+		var user = await userManager.FindByEmailAsync(request.Email);
+		if(user == null) {
+			return NotFound("Invalid Mail");
+		}
+		var decodedToken = Encoding.UTF8.GetString(Convert.FromBase64String(request.Code));
+		var isValidToken = await userManager.VerifyUserTokenAsync(
+			user,
+			userManager.Options.Tokens.PasswordResetTokenProvider, "ResetPassword", decodedToken);
+		if(!isValidToken) {
+			return BadRequest("Invalid or expired verification code");
+		}
+		return Ok("Verificaion");
+	}
+	[HttpPost("reset-password")]
+	public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest request) {
+		var user = await userManager.FindByEmailAsync(request.Email);
+		if(user == null) {
+			return BadRequest("Invalid Email");
+		}
+		var decodedToken = Encoding.UTF8.GetString(Convert.FromBase64String(request.Code));
+		var result = await userManager.ResetPasswordAsync(user, decodedToken, request.NewPassword);
+		if(!result.Succeeded) {
+			return BadRequest(result.Errors.ToString());
+		}
+		return Ok("Password changed");
+	}
+
+	[NonAction]
+	public async Task SendVerificationCode(string toEmail, string verificationCode) {
+		var email = new MimeMessage();
+		email.From.Add(new MailboxAddress(smtpSetting.SenderName, smtpSetting.SenderEmail));
+		email.To.Add(MailboxAddress.Parse(toEmail));
+		email.Subject = "Verification Change Password Code";
+		var builder = new BodyBuilder {
+			HtmlBody = $"<p>Your verification code is: <strong>{verificationCode}</strong></p>"
+		};
+		email.Body = builder.ToMessageBody();
+		using(var smtp = new SmtpClient()) {
+			try {
+				await smtp.ConnectAsync(smtpSetting.Server, smtpSetting.Port, MailKit.Security.SecureSocketOptions.StartTls);
+				await smtp.AuthenticateAsync(smtpSetting.Username, smtpSetting.Password);
+				await smtp.SendAsync(email);
+			}
+			finally {
+				await smtp.DisconnectAsync(true);
+			}
+		}
+	}
+
 
 }

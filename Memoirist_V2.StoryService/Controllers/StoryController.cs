@@ -4,6 +4,7 @@ using Memoirist_V2.StoryService.Models.DTO;
 using Memoirist_V2.StoryService.RepoPattern.RabbitMess;
 using Memoirist_V2.StoryService.RepoPattern.StoryRepo;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Metadata;
 using Microsoft.AspNetCore.Mvc;
 using System.Runtime.InteropServices;
 
@@ -20,6 +21,16 @@ public class StoryController : ControllerBase {
 		this.storyRepository = storyRepository;
 		this.mapper = mapper;
 	}
+	[HttpGet("search-story-name")]
+	public async Task<IActionResult> SearchStory(string storyName) {
+		var item = await storyRepository.SearchStory(storyName);
+		if(item != null) {
+			return Ok(item);
+		} else {
+			string result = "Khong tim thay";
+			return NotFound(result);
+		}
+	}
 
 	[HttpGet("get-list-story")]
 	public async Task<IActionResult> GetListStory() {
@@ -27,7 +38,7 @@ public class StoryController : ControllerBase {
 		return Ok(result);
 	}
 	[HttpPost("add-story")]
-	public async Task<IActionResult> AddStory(AddStoryDTO itemDTO) {
+	public async Task<IActionResult> AddStory([FromBody]AddStoryDTO itemDTO) {
 		////StoryAuthor sẽ bằng tên của Username truyền vào từ Frontend
 		////StoryWriterId cung vay
 		var itemDomain = mapper.Map<Story>(itemDTO);

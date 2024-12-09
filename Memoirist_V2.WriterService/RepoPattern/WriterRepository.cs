@@ -16,6 +16,7 @@ public class WriterRepository : IWriterRepository {
 		this.dbContext = dbContext;
 		this.rabbitWriterRepository = rabbitWriterRepository;
 	}
+
 	public async Task<List<Writer>> GetListFollower(int id) {
 		await SaveNewWriter();
 		var writerDomain = await dbContext.Writers.FirstOrDefaultAsync(x => x.WriterId == id);	
@@ -168,4 +169,5 @@ public class WriterRepository : IWriterRepository {
 		await dbContext.SaveChangesAsync();
 		return findItem;
 	}
+
 }

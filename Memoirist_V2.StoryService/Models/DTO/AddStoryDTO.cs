@@ -7,6 +7,6 @@ public class AddStoryDTO {
 	public string? StoryAuthor { get; set; }
 	public string? StoryPicture { get; set; }
 	public string? StoryDateWrited { get; set; }
-	public bool TermsAndConditionsCheck { get; set; }
+	public bool? TermsAndConditionsCheck { get; set; }
 
 }

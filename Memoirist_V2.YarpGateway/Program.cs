@@ -32,7 +32,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.AddRabbitMQClient("rabbitMess");
 builder.Services.AddScoped<IRabbitYarpRepository, RabbitYarpRepository>();//Yarp Service
-
+builder.Services.Configure<DataProtectionTokenProviderOptions>(options => options.TokenLifespan = TimeSpan.FromHours(2));
 
 //Writer Service
 builder.Services.AddScoped<IWriterRepository, WriterRepository>();// DI for Writer Service
@@ -56,9 +56,10 @@ builder.Services.AddReverseProxy()
 
 builder.Services.AddAuthorizationBuilder().AddPolicy("AdminPolicy", o => o.RequireRole("Admin"));
 builder.AddNpgsqlDbContext<AuthenticateDbContext>("authenDb");
-builder.Services.AddIdentity<User, IdentityRole>()
+builder.Services.AddIdentity<User, IdentityRole>(options => options.Tokens.PasswordResetTokenProvider = TokenOptions.DefaultProvider)
 	.AddEntityFrameworkStores<AuthenticateDbContext>()
 	.AddSignInManager()
+	.AddDefaultTokenProviders()
 	.AddRoles<IdentityRole>();
 builder.Services.AddAuthentication(options => {
 	options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

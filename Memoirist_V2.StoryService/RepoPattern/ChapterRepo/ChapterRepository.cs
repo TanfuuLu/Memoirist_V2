@@ -13,18 +13,12 @@ public class ChapterRepository : IChapterRepository {
 	}
 
 	public async Task<Chapter> AddChapter(int storyId, Chapter chapter) {
-		var listChapterOfStory = await storyDbContext.Chapters.ToListAsync();
+		var listChapterOfStory = await storyDbContext.Chapters.Where(c => c.StoryId == storyId).ToListAsync();
 		DateTime datetime = DateTime.Now;
 		chapter.ChapterDateTime = datetime.ToString("dd/MM/yyyy");
-		var listStoryChapter = new List<Chapter>();
-		if(listChapterOfStory.Count > 0) {
-			foreach(var item in listChapterOfStory) {
-				if(item.StoryId == storyId) {
-					listStoryChapter.Add(item);
-				}
-			}
-			var number = listStoryChapter.Last().ChapterNumber;
-			chapter.ChapterNumber = number + 1;
+		var lastChapter = listChapterOfStory.LastOrDefault();
+		if(lastChapter != null) {
+			chapter.ChapterNumber = lastChapter.ChapterNumber + 1;
 		} else {
 			chapter.ChapterNumber = 1;
 		}
@@ -34,8 +28,15 @@ public class ChapterRepository : IChapterRepository {
 		return chapter;
 	}
 
-	public Task<Chapter> DeleteChapter(int chapter) {
-		throw new NotImplementedException();
+	public async Task<Chapter> DeleteChapter(int chapterId) {
+		var findChapter = await storyDbContext.Chapters.FirstOrDefaultAsync(c => c.ChapterId == chapterId);
+		if(findChapter != null) {
+			storyDbContext.Chapters.Remove(findChapter);
+			await storyDbContext.SaveChangesAsync();
+			return findChapter; 
+		} else {
+			return null;
+		}
 	}
 
 	public async Task<List<Chapter>> GetAllChapterOfStory(int storyId) {
@@ -57,7 +58,7 @@ public class ChapterRepository : IChapterRepository {
 				listResult.Add(item);
 			}
 		}
-		var itemChapter = listResult.FirstOrDefault( x => x.ChapterId == chapterId);
+		var itemChapter = listResult.FirstOrDefault(x => x.ChapterId == chapterId);
 		return itemChapter;
 	}
 }

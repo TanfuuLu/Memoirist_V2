@@ -17,9 +17,10 @@ public class StoryRepository : IStoryRepository {
 
 	
 	public async Task<Story> AddStory(Story story) {
-		DateTime datetime =DateTime.Now;
-		story.StoryDateWrited = datetime.ToString("dd/dd/yyyy");
+		//DateTime datetime =DateTime.Now;
+		//story.StoryDateWrited = datetime.ToString("dd/dd/yyyy");
 		story.StoryLikes = 0;
+		
 		dbContext.Stories.Add(story);
 		await dbContext.SaveChangesAsync();
 		var item = await dbContext.Stories.FirstOrDefaultAsync(x => x.StoryName == story.StoryName);
@@ -85,7 +86,8 @@ public class StoryRepository : IStoryRepository {
 	}
 
 	public async Task<Story> SearchStory(string? storyName) {
-		var item = await dbContext.Stories.FirstOrDefaultAsync(x => x.StoryName == storyName);
+		var stringSearch = storyName.ToLower();
+		var item = await dbContext.Stories.FirstOrDefaultAsync(x => x.StoryName.ToLower() == storyName);
 		if(item != null) {
 			return item;
 		} else {
