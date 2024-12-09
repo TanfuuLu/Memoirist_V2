@@ -19,6 +19,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Memoirist_V2.PostService.Mapping;
 using Memoirist_V2.StoryService.RepoPattern.ChapterRepo;
+using Microsoft.AspNetCore.Authentication.Facebook;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
@@ -64,6 +65,9 @@ builder.Services.AddIdentity<User, IdentityRole>(options => options.Tokens.Passw
 builder.Services.AddAuthentication(options => {
 	options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
 	options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+	options.DefaultAuthenticateScheme = "Identity.Application";
+	options.DefaultSignInScheme = "Identity.Application";
+	options.DefaultChallengeScheme = FacebookDefaults.AuthenticationScheme;
 }).AddCookie(cookie => {
 	cookie.Cookie.Name = "token";
 }).AddJwtBearer(options => {
@@ -82,6 +86,10 @@ builder.Services.AddAuthentication(options => {
 			return Task.CompletedTask;
 		}
 	};
+})
+.AddFacebook(facebookOptions => {
+	facebookOptions.AppId = builder.Configuration["Authentication:Facebook:AppId"];
+	facebookOptions.AppSecret = builder.Configuration["Authentication:Facebook:AppSecret"];
 });
 builder.Services.Configure<IdentityOptions>(options => {
 	options.Password.RequireDigit = false;
