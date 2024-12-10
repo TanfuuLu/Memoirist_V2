@@ -86,10 +86,6 @@ builder.Services.AddAuthentication(options => {
 			return Task.CompletedTask;
 		}
 	};
-})
-.AddFacebook(facebookOptions => {
-	facebookOptions.AppId = builder.Configuration["Authentication:Facebook:AppId"];
-	facebookOptions.AppSecret = builder.Configuration["Authentication:Facebook:AppSecret"];
 });
 builder.Services.Configure<IdentityOptions>(options => {
 	options.Password.RequireDigit = false;

@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
-using Facebook;
 using MailKit.Net.Smtp;
 using Memoirist_V2.YarpGateway.DataContext;
 using Memoirist_V2.YarpGateway.Models;
-using Memoirist_V2.YarpGateway.Models.FacebookModel;
 using Memoirist_V2.YarpGateway.RabbitMess;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -189,49 +187,6 @@ public class YarpAuthenController : ControllerBase {
 			}
 		}
 	}
-	[HttpPost("delete-data")]
-	public async Task<IActionResult> DeleteUserData([FromBody] DeleteUserDataRequest request) {
-		var user = await userManager.FindByIdAsync(request.UserId);
-		dbContext.Users.Remove(user);
-		await dbContext.SaveChangesAsync();
-		return Ok(new {
-			message = "User data has been successfully deleted.",
-			status = "success"
-		});
-	}
 	#endregion
-	#region LoginWithFacebook
-	[HttpPost("login-facebook")]
-	public async Task<IActionResult> LoginWithFacebook(string accessToken) {
-		var facebookClient = new FacebookClient(accessToken);
-		dynamic userInfo = await facebookClient.GetTaskAsync("me?fields=id,name,email,gender,birthday");
-		string facebookId = userInfo.id;
-		string email = userInfo.email;
-		string fullName = userInfo.name;
-		string gender = userInfo.gender;
-		string birthday = userInfo.birthday;
-		var user = await userManager.FindByEmailAsync(email);
-		if(user == null) {
-			user = new User {
-				WriterUsername = facebookId,
-				UserName = facebookId,
-				WriterFullname = fullName,
-				WriterAvatar = "defaultavatar.jpg",
-				Account = email,
-				WriterEmail = email,
-				WriterGender = gender,
-				WriterBirthday = birthday
 
-			};
-			var result = await userManager.CreateAsync(user);
-			if(result.Succeeded) {
-				return BadRequest();
-			}
-			
-		}
-		await signInManager.SignInAsync(user, isPersistent: true);
-		return Ok(user);
-
-	}
-	#endregion
 }
