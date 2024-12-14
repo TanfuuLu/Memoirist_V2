@@ -3,6 +3,8 @@ using MailKit.Net.Smtp;
 using Memoirist_V2.YarpGateway.DataContext;
 using Memoirist_V2.YarpGateway.Models;
 using Memoirist_V2.YarpGateway.RabbitMess;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -188,5 +190,5 @@ public class YarpAuthenController : ControllerBase {
 		}
 	}
 	#endregion
-
+	
 }

@@ -7,4 +7,6 @@ public interface IChapterRepository {
 	Task<Chapter> DeleteChapter( int chapter);
 	Task<List<Chapter>> GetAllChapterOfStory(int storyId);
 	Task<Chapter> GetChapterToRead(int storyId, int chapterId);
+	Task<int?> GetLastChapterNumber(int storyId);
+	Task<int> GetLastChapterId(int storyId);
 }

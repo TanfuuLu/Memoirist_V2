@@ -104,7 +104,12 @@ public class PostRepository : IPostRepository {
 	}
 	public async Task<Post> LikePost(int postId, int writerId) {
 		var findPost = await postDbContext.Posts.FirstOrDefaultAsync(x => x.PostId == postId);
-		
+		if(findPost == null) {
+			throw new ArgumentException($"Không tìm thấy bài viết với ID: {postId}");
+		}
+		if(findPost.ListWriterLikePost == null) {
+			findPost.ListWriterLikePost = new List<int>();
+		}
 		if(findPost.ListWriterLikePost.Contains(writerId)) {
 			findPost.ListWriterLikePost.Remove(writerId);
 			findPost.PostLike -= 1;

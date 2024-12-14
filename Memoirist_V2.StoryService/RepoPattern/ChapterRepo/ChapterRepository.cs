@@ -50,6 +50,18 @@ public class ChapterRepository : IChapterRepository {
 		return chapterList;
 	}
 
+	public async Task<int> GetLastChapterId(int storyId) {
+		var item = await storyDbContext.Chapters.Where(c => c.StoryId == storyId).ToListAsync();
+		var findItem = item.LastOrDefault();
+		int result;
+		if(findItem == null) {
+			result = 0;
+		} else {
+			result = findItem.ChapterId;
+		}
+		return result;
+	}	
+
 	public async Task<Chapter> GetChapterToRead(int storyId, int chapterId) {
 		var listChapter = await storyDbContext.Chapters.ToListAsync();
 		List<Chapter> listResult = new List<Chapter>();
@@ -60,5 +72,17 @@ public class ChapterRepository : IChapterRepository {
 		}
 		var itemChapter = listResult.FirstOrDefault(x => x.ChapterId == chapterId);
 		return itemChapter;
+	}
+
+	public async Task<int?> GetLastChapterNumber(int storyId) {
+		var list = await storyDbContext.Chapters.Where(s => s.StoryId == storyId).ToListAsync();
+		var finditem = list.LastOrDefault();
+		int? result;
+		if(finditem == null) {
+			result = 0;
+		} else {
+			result = finditem.ChapterNumber;
+		}
+		return result;
 	}
 }

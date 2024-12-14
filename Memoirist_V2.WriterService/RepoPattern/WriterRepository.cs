@@ -170,4 +170,13 @@ public class WriterRepository : IWriterRepository {
 		return findItem;
 	}
 
+	public async Task<List<Writer>> SearchWriterByName(string writerName) {
+		var stringLower = writerName.ToLower();
+		var list = await dbContext.Writers.Where(w => w.WriterFullname.ToLower().Contains(stringLower)).ToListAsync();
+		if(list != null) {
+			return list;
+		} else {
+			return null;
+		}
+	}
 }

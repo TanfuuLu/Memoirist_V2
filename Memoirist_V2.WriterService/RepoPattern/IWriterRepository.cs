@@ -7,7 +7,7 @@ public interface IWriterRepository {
 	Task<List<Writer>> GetListWriters();
 	Task<List<Writer>> GetListFollowing(int id);
 	Task<List<Writer>> GetListFollower(int id);
-	
+	Task<List<Writer>> SearchWriterByName(string writerName);
 	Task<Writer> GetWriterLogin();
 	Task<Writer> UpdateWriterAvatar(int id, string avatar);
 	Task<Writer> UpdateWriter(int id, Writer updateItem);

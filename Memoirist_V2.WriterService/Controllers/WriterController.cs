@@ -34,6 +34,11 @@ public class WriterController : ControllerBase {
 		return Ok(writer);
 
 	}
+	[HttpGet("search-writer")]
+	public async Task<IActionResult> SearchWriter(string writerName) {
+		var reuslt = await writerRepository.SearchWriterByName(writerName);
+		return Ok(reuslt);
+	}
 	//Get user when login from authenticate
 	[HttpGet("writer-login")]
 	public async Task<IActionResult> WriterLogin() {

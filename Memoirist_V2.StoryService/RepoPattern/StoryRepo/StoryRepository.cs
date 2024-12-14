@@ -85,9 +85,9 @@ public class StoryRepository : IStoryRepository {
 		}
 	}
 
-	public async Task<Story> SearchStory(string? storyName) {
+	public async Task<List<Story>> SearchStory(string? storyName) {
 		var stringSearch = storyName.ToLower();
-		var item = await dbContext.Stories.FirstOrDefaultAsync(x => x.StoryName.ToLower() == storyName);
+		var item = await dbContext.Stories.Where(x => x.StoryName.ToLower().Contains(storyName)).ToListAsync();
 		if(item != null) {
 			return item;
 		} else {

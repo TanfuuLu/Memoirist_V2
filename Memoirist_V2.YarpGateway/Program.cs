@@ -20,6 +20,7 @@ using System.Text;
 using Memoirist_V2.PostService.Mapping;
 using Memoirist_V2.StoryService.RepoPattern.ChapterRepo;
 using Microsoft.AspNetCore.Authentication.Facebook;
+using Microsoft.AspNetCore.Authentication.Google;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
@@ -65,10 +66,8 @@ builder.Services.AddIdentity<User, IdentityRole>(options => options.Tokens.Passw
 builder.Services.AddAuthentication(options => {
 	options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
 	options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-	options.DefaultAuthenticateScheme = "Identity.Application";
-	options.DefaultSignInScheme = "Identity.Application";
-	options.DefaultChallengeScheme = FacebookDefaults.AuthenticationScheme;
 }).AddCookie(cookie => {
+	cookie.Cookie.Name = "Cookies";
 	cookie.Cookie.Name = "token";
 }).AddJwtBearer(options => {
 	options.TokenValidationParameters = new TokenValidationParameters {
@@ -87,6 +86,9 @@ builder.Services.AddAuthentication(options => {
 		}
 	};
 });
+
+
+
 builder.Services.Configure<IdentityOptions>(options => {
 	options.Password.RequireDigit = false;
 	options.Password.RequireNonAlphanumeric = false;
@@ -97,7 +99,7 @@ builder.Services.Configure<IdentityOptions>(options => {
 });
 builder.Services.AddCors(options => {
 	options.AddPolicy("AllowAngularApp",
-	    policy => policy.WithOrigins("http://localhost:4200") // Angular chạy trên cổng 4200
+	    policy => policy.WithOrigins("https://localhost:4200") // Angular chạy trên cổng 4200
 				  .AllowAnyHeader()
 				  .AllowAnyMethod());
 });

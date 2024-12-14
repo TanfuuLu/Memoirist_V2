@@ -19,3 +19,12 @@ public class User : IdentityUser {
 	public string? WriterPhone { get; set; }
 	public string? WriterEmail { get; set; }
 }
+public class GoogleTokenRequest {
+	public string IdToken { get; set; }
+}
+
+public class GoogleTokenPayload {
+	public string Name { get; set; }
+	public string Email { get; set; }
+	public string Picture { get; set; }
+}
