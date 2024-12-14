@@ -47,14 +47,13 @@ public class StoryRepository : IStoryRepository {
 		return listResult;
 	}
 
-	public async Task<List<Story>> GetListStoryFollowing() {
+	public async Task<List<Story>> GetListStoryFollowing(List<int> followingStoryId) {
 		//Nhận danh sách Id của Story được Writer follow
-		var listItem = await rabbitRepository.ReceiveListFollowingStoryOfWriter("FollowingStoryIdQueue");
 		var listDomain = await dbContext.Stories.ToListAsync();
 		var listResult = new List<Story>();
 		//Tim kiem cac story trong Database
 		foreach(var item in listDomain) {
-			foreach(var storyId in listItem) {
+			foreach(var storyId in followingStoryId) {
 				if(storyId == item.StoryId) {
 					listResult.Add(item);
 				}

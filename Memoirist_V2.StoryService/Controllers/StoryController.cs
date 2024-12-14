@@ -51,9 +51,9 @@ public class StoryController : ControllerBase {
 		var mapItem = mapper.Map<ShowStoryDTO>(item);
 		return Ok(mapItem);
 	}
-	[HttpGet("get-list-following-of-writer")]
-	public async Task<IActionResult> GetFollowingOfWriter() {
-		var listItem = await storyRepository.GetListStoryFollowing();
+	[HttpPost("get-list-following-of-writer")]
+	public async Task<IActionResult> GetFollowingOfWriter([FromBody]List<int> followingStoryId) {
+		var listItem = await storyRepository.GetListStoryFollowing(followingStoryId);
 		return Ok(listItem);
 	}
 	[HttpGet("writer-{id:int}/get-list-story-of-writer")]

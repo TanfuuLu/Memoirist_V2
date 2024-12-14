@@ -7,7 +7,7 @@ public interface IStoryRepository{
 	Task<Story> GetStory(int storyId); 
 	Task<List<Story>> SearchStory(string? storyName);
 	Task<List<Story>> GetListStory();
-	Task<List<Story>> GetListStoryFollowing();
+	Task<List<Story>> GetListStoryFollowing(List<int> followingStoryId);
 	Task<Story> AddStory(Story story);
 	Task<Story> UpdateStoryIntroduction(string newIntroduction, int id);
 	Task<Story> DeleteStory(int storyId);
