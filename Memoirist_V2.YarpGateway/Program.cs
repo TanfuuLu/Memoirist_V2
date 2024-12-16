@@ -21,6 +21,7 @@ using Memoirist_V2.PostService.Mapping;
 using Memoirist_V2.StoryService.RepoPattern.ChapterRepo;
 using Microsoft.AspNetCore.Authentication.Facebook;
 using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
@@ -30,7 +31,8 @@ builder.AddServiceDefaults();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(
+	);
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.AddRabbitMQClient("rabbitMess");
 builder.Services.AddScoped<IRabbitYarpRepository, RabbitYarpRepository>();//Yarp Service

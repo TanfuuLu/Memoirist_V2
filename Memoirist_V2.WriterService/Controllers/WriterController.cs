@@ -15,6 +15,8 @@ public class WriterController : ControllerBase {
 	private readonly IRabbitWriterRepository rabbitRepository;
 	private readonly IWriterRepository writerRepository;
 	private readonly IMapper mapper;
+	private readonly string _targetPath = @"E:\MyProject\VSProject\Memoirist_Fe\Memoirist\public\img\avatar\";
+
 
 	public WriterController(IRabbitWriterRepository rabbitRepository, IWriterRepository writerRepository, IMapper mapper) {
 		this.rabbitRepository = rabbitRepository;
@@ -49,8 +51,8 @@ public class WriterController : ControllerBase {
 		return Ok(writerLogin);
 	}
 	//Update information of writer
-	[HttpPut("writer-update")]
-	public async Task<IActionResult> WriterUpdate(int id, UpdateWriterDTO itemDTO) {
+	[HttpPut("writer-update-{id:int}")]
+	public async Task<IActionResult> WriterUpdate([FromRoute]int id, [FromBody] UpdateWriterDTO itemDTO) {
 		var itemDomain = mapper.Map<Writer>(itemDTO);
 		var result = await writerRepository.UpdateWriter(id, itemDomain);
 		return Ok(result);
@@ -109,6 +111,27 @@ public class WriterController : ControllerBase {
 	public async Task<IActionResult> DeletePostToWriter([FromRoute] int writerId, [FromRoute] int id) {
 		var item = await writerRepository.DeletePostFromList(id, writerId);
 		return Ok(item);
+	}
+	[HttpPost("upload")]
+	public async Task<IActionResult> UploadFile( IFormFile file) {
+		if(file == null) {
+			return BadRequest("No file uploaded.");
+		}
+
+		var fileName = file.FileName;
+		var filePath = Path.Combine(_targetPath, fileName);
+
+		// Kiểm tra và tạo thư mục nếu chưa tồn tại
+		if(!Directory.Exists(_targetPath)) {
+			Directory.CreateDirectory(_targetPath);
+		}
+
+		// Lưu file vào thư mục đích
+		await using var stream = new FileStream(filePath, FileMode.Create);
+		await file.CopyToAsync(stream);
+
+		// Trả về tên file đã upload
+		return Ok(fileName);
 	}
 	#endregion
 }

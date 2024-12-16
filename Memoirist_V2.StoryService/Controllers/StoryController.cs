@@ -48,8 +48,8 @@ public class StoryController : ControllerBase {
 	[HttpGet("get-story-{storyId:int}")]
 	public async Task<IActionResult> GetStory([FromRoute]int storyId) {
 		var item = await storyRepository.GetStory(storyId);
-		var mapItem = mapper.Map<ShowStoryDTO>(item);
-		return Ok(mapItem);
+		
+		return Ok(item);
 	}
 	[HttpPost("get-list-following-of-writer")]
 	public async Task<IActionResult> GetFollowingOfWriter([FromBody]List<int> followingStoryId) {

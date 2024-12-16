@@ -63,16 +63,16 @@ public class WriterRepository : IWriterRepository {
 		if(DomainItem == null) {
 			return null;
 		} else {
-			if(updateItem.WriterAvatar != "string") {
+			if(updateItem.WriterAvatar != "" && updateItem.WriterAvatar != DomainItem.WriterAvatar) {
 				DomainItem.WriterAvatar = updateItem.WriterAvatar;
 			}
-			if(updateItem.WriterBio != "string") {
+			if(updateItem.WriterBio != "" && updateItem.WriterBio != DomainItem.WriterBio) {
 				DomainItem.WriterBio = updateItem.WriterBio;
 			}
-			if(updateItem.WriterFullname != "string") {
+			if(updateItem.WriterFullname != "" && updateItem.WriterFullname != DomainItem.WriterFullname) {
 				DomainItem.WriterFullname = updateItem.WriterFullname;
 			}
-			if(updateItem.WriterUsername != "string") {
+			if(updateItem.WriterUsername != "" && updateItem.WriterUsername != DomainItem.WriterUsername) {
 				DomainItem.WriterUsername = updateItem.WriterUsername;
 			}
 			await dbContext.SaveChangesAsync();

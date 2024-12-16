@@ -2,5 +2,4 @@
 
 public class AddCommentDTO {
 	public string? CommentContext { get; set; }
-
 }

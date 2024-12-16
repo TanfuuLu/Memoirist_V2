@@ -108,7 +108,6 @@ public class StoryRepository : IStoryRepository {
 		comment.CommentDateTime = dateTime.ToString("dd/MM/yyyy");
 		comment.CommentWriterId = writerId;
 		comment.CommentLike = 0;
-		comment.CommentWriterId = writerId;
 		comment.StoryId = storyId;
 		if(comment.CommentContext != null) {
 			dbContext.Comments.Add(comment);
