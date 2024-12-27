@@ -82,6 +82,34 @@ namespace Memoirist_V2.StoryService.Migrations
                     b.ToTable("Comments");
                 });
 
+            modelBuilder.Entity("Memoirist_V2.StoryService.Models.ReportModel.ReportStory", b =>
+                {
+                    b.Property<int>("reportId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("reportId"));
+
+                    b.Property<string>("DateTimeReport")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Violation")
+                        .HasColumnType("text");
+
+                    b.Property<string>("storyName")
+                        .HasColumnType("text");
+
+                    b.Property<int>("storyReportId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("storyWriterName")
+                        .HasColumnType("text");
+
+                    b.HasKey("reportId");
+
+                    b.ToTable("reportStories");
+                });
+
             modelBuilder.Entity("Memoirist_V2.StoryService.Models.Story", b =>
                 {
                     b.Property<int?>("StoryId")

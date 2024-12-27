@@ -22,6 +22,7 @@ using Memoirist_V2.StoryService.RepoPattern.ChapterRepo;
 using Microsoft.AspNetCore.Authentication.Facebook;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.OpenApi.Models;
+using Memoirist_V2.StoryService.RepoPattern.ReportRepo;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
@@ -48,6 +49,8 @@ builder.AddNpgsqlDbContext<StoryDbContext>("storyDb");
 builder.Services.AddScoped<IRabbitRepository, RabbitStoryRepository>();
 builder.Services.AddScoped<IStoryRepository, StoryRepository>();
 builder.Services.AddScoped<IChapterRepository, ChapterRepository>();
+builder.Services.AddScoped<IReportRepository, ReportRepository>();
+
 builder.Services.AddAutoMapper(typeof(StoryMappingProfile).Assembly);
 //Post Service
 builder.AddNpgsqlDbContext<PostDbContext>("postDb");

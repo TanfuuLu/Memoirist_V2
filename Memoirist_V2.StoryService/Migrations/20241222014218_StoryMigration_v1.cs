@@ -6,11 +6,28 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Memoirist_V2.StoryService.Migrations
 {
     /// <inheritdoc />
-    public partial class StoryMigration_v2 : Migration
+    public partial class StoryMigration_v1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "reportStories",
+                columns: table => new
+                {
+                    reportId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    storyReportId = table.Column<int>(type: "integer", nullable: false),
+                    Violation = table.Column<string>(type: "text", nullable: true),
+                    DateTimeReport = table.Column<string>(type: "text", nullable: true),
+                    storyWriterName = table.Column<string>(type: "text", nullable: true),
+                    storyName = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_reportStories", x => x.reportId);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Stories",
                 columns: table => new
@@ -96,6 +113,9 @@ namespace Memoirist_V2.StoryService.Migrations
 
             migrationBuilder.DropTable(
                 name: "Comments");
+
+            migrationBuilder.DropTable(
+                name: "reportStories");
 
             migrationBuilder.DropTable(
                 name: "Stories");

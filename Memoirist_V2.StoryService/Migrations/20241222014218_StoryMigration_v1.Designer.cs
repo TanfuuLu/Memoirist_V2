@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Memoirist_V2.StoryService.Migrations
 {
     [DbContext(typeof(StoryDbContext))]
-    [Migration("20241120030323_StoryMigration_v2")]
-    partial class StoryMigration_v2
+    [Migration("20241222014218_StoryMigration_v1")]
+    partial class StoryMigration_v1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -83,6 +83,34 @@ namespace Memoirist_V2.StoryService.Migrations
                     b.HasIndex("StoryId");
 
                     b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("Memoirist_V2.StoryService.Models.ReportModel.ReportStory", b =>
+                {
+                    b.Property<int>("reportId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("reportId"));
+
+                    b.Property<string>("DateTimeReport")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Violation")
+                        .HasColumnType("text");
+
+                    b.Property<string>("storyName")
+                        .HasColumnType("text");
+
+                    b.Property<int>("storyReportId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("storyWriterName")
+                        .HasColumnType("text");
+
+                    b.HasKey("reportId");
+
+                    b.ToTable("reportStories");
                 });
 
             modelBuilder.Entity("Memoirist_V2.StoryService.Models.Story", b =>
